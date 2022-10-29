@@ -11,6 +11,7 @@ export default function RootLayout({ children }: { children: React.ReactNode}) {
     <html lang="de" className={clsx("p-0 m-0", inter.className)}>
       <head>
         <title>Mate In Berlin</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className="p-0 m-0 bg-onyx-800 text-white">
         <header className="w-full h-20 p-6 flex flex-row items-center justify-end">
