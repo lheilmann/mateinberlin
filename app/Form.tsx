@@ -1,10 +1,23 @@
 "use client";
 
+import {supabase} from "../supabase/client";
 import { Formik } from "formik";
+import { useRouter } from 'next/navigation';
+
+async function createParticipant(values) {
+    await supabase
+        .from("participants")
+        .insert({
+            ...values,
+        });
+}
 
 export default function Form() {
-    const onSubmit = (values, { resetForm }) => {
-        console.log(values);
+    const router = useRouter();
+
+    const onSubmit = async (values, { resetForm }) => {
+        await createParticipant(values);
+        router.refresh();
         resetForm();
     }
 
