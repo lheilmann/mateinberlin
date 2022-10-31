@@ -5,7 +5,7 @@ const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 async function customFetch(url, options) {
   const customOptions = {
-    cache: "no-cache",
+    cache: "no-store",
     ...options
   }
   return fetch(url, customOptions);
