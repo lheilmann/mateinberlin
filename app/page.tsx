@@ -4,7 +4,7 @@ import {supabase} from "../supabase/client";
 async function getParticipants() {
     let { data: participants, error } = await supabase
         .from('participants')
-        .select('*')
+        .select('*');
     if (error) {
         throw error;
     }
