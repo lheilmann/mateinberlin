@@ -1,6 +1,8 @@
 import Form from "./Form";
 import {supabase} from "../supabase/client";
 
+export const revalidate = 2;
+
 async function getParticipants() {
     let { data: participants, error } = await supabase
         .from('participants')
