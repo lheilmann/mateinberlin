@@ -1,19 +1,15 @@
 import Form from "./Form";
 import {supabase} from "../supabase/client";
 
-export const revalidate = 2;
+export const revalidate = 60;
 
-async function getParticipants() {
-    let { data: participants, error } = await supabase
-        .from('participants')
-        .select('*');
-    if (error) {
-        throw error;
-    }
-    return participants;
-}
 export default async function Page() {
-    const participants = await getParticipants();
+    const { data: participants, error } = await supabase
+      .from('participants')
+      .select('*');
+    if (error) {
+      throw error;
+  }
 
     return (
       <div className="flex flex-col gap-10">
