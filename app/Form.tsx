@@ -1,11 +1,11 @@
 "use client";
 
-import { supabase } from "../supabase/client";
+import { supabaseClient } from "../supabase/client";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 
 async function createParticipant(values) {
-  await supabase
+  await supabaseClient
     .from("participants")
     .insert({
       ...values,

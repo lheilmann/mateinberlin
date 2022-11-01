@@ -7,9 +7,9 @@ async function customFetch(url: string, init: RequestInit) {
   return fetch(url, { cache: "no-store", ...init });
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabaseClient = createClient(supabaseUrl, supabaseAnonKey, {
   global: {
-    fetch: customFetch,
+    // fetch: customFetch,
   },
 })
 
