@@ -9,4 +9,18 @@ a {
 
 * {
   box-sizing: border-box;
+  /*cursor: url("/rook.svg"), auto;*/
+}
+
+.column {
+  border-bottom: 2px solid;
+  border-image: linear-gradient(90deg, transparent 0%, transparent 40%, white 50%, transparent 52%, transparent 100%) 1;
+  animation: shimmer 2s infinite 1s;
+  transform: translate(-100%);
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
 }
