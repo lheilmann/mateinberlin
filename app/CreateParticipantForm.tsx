@@ -1,19 +1,17 @@
 "use client";
 
-import ConfettiGenerator from "confetti-js";
-import { supabaseClient } from "../supabase/client";
+import supabase from "../supabase";
 import { Formik } from "formik";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Script from "next/script";
 
 async function createParticipant(values) {
-  await supabaseClient.from("participants").insert({
+  await supabase.from("participants").insert({
     ...values,
   });
 }
 
-export default function Form() {
+export default function CreateParticipantForm() {
   const router = useRouter();
 
   const onSubmit = async (values, { resetForm }) => {

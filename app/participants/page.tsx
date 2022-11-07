@@ -1,9 +1,9 @@
-import { supabaseClient } from "../../supabase/client";
+import supabase from "../../supabase";
 
 export const revalidate = 0;
 
 export default async function Page() {
-  const { data: participants, error } = await supabaseClient
+  const { data: participants, error } = await supabase
     .from("participants")
     .select();
 

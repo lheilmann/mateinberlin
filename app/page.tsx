@@ -1,20 +1,13 @@
-import Form from "./Form";
-import { supabaseClient } from "../supabase/client";
-import clsx from "clsx";
+import CreateParticipantForm from "./CreateParticipantForm";
+import SignInForm from "./SignInForm";
 
 export const revalidate = 0;
 
 export default async function Page() {
-  const { data: participants, error } = await supabaseClient
-    .from("participants")
-    .select();
-
-  if (error) throw error;
-
   return (
     <div className="flex flex-col gap-10">
       <section className="flex items-center justify-center w-full">
-        <h1 className="text-8xl font-semibold tracking-wider text-gray-100 uppercase text-transparent bg-clip-text bg-gradient-to-br from-white to-blue-300 drop-shadow-[0_0_12px_rgba(147, 197, 253, 0.6)]">
+        <h1 className="text-8xl font-semibold tracking-wider text-gray-100 uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300 drop-shadow-[0_0_12px_rgba(147, 197, 253, 0.6)]">
           Mate in Berlin
         </h1>
       </section>
@@ -47,10 +40,13 @@ export default async function Page() {
       {/*    </div>*/}
       {/*  </div>*/}
       {/*</section>*/}
-      <section className="flex flex-col items-center justify-center">
-        <div className="flex flex-col max-w-md gap-6">
+      <section className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="p-4 rounded border border-transparent hover:border-gray-400 transition">
+          <SignInForm />
+        </div>
+        <div className="p-4 rounded border border-transparent hover:border-gray-400 transition">
           <h2>Nächstes Turnier 3. November</h2>
-          <Form />
+          <CreateParticipantForm />
         </div>
       </section>
     </div>
