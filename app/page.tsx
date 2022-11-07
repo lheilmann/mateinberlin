@@ -1,5 +1,5 @@
 import CreateParticipantForm from "./CreateParticipantForm";
-import SignInForm from "./SignInForm";
+import AccountCard from "./AccountCard";
 
 export const revalidate = 0;
 
@@ -41,9 +41,7 @@ export default async function Page() {
       {/*  </div>*/}
       {/*</section>*/}
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="p-4 rounded border border-transparent hover:border-gray-400 transition">
-          <SignInForm />
-        </div>
+        <AccountCard />
         <div className="p-4 rounded border border-transparent hover:border-gray-400 transition">
           <h2>Nächstes Turnier 3. November</h2>
           <CreateParticipantForm />
