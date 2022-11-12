@@ -21,7 +21,7 @@ export default async function RootLayout(props: Props) {
       <body className="p-0 m-0 bg-onyx-900 text-white">
         <Provider>
           <Header />
-          <main className="px-10">{props.children}</main>
+          <main className="px-4 sm:px-10">{props.children}</main>
           <footer></footer>
         </Provider>
       </body>
