@@ -17,12 +17,10 @@ export default function NextTournamentCard() {
     sessionContext.session &&
     sessionContext.session.user;
 
-  console.log(user);
-
   return (
     <>
-      <div className="p-4 rounded-lg border border-onyx-700 bg-onyx-800">
-        <span className="text-onyx-500 uppercase tracking-wider">
+      <div className="p-4 rounded-lg border border-zinc-700 bg-zinc-800">
+        <span className="text-zinc-500 uppercase tracking-wider">
           Nächstes Turnier
         </span>
         <h2 className="text-2xl">3. November 2022</h2>

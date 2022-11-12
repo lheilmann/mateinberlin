@@ -18,7 +18,7 @@ export default async function RootLayout(props: Props) {
         <title>Mate In Berlin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="p-0 m-0 bg-onyx-900 text-white">
+      <body className="p-0 m-0 bg-zinc-900 text-white">
         <Provider>
           <Header />
           <main className="px-4 sm:px-10">{props.children}</main>

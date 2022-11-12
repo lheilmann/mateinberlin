@@ -1,5 +1,7 @@
 import AccountCard from "./AccountCard";
 import NextTournamentCard from "./NextTournamentCard";
+import CommunityCard from "./CommunityCard";
+import RankingCard from "./RankingCard";
 
 export const revalidate = 0;
 
@@ -14,6 +16,8 @@ export default async function Page() {
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <AccountCard />
         <NextTournamentCard />
+        <CommunityCard />
+        <RankingCard />
       </section>
     </div>
   );

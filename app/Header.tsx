@@ -22,7 +22,7 @@ export default function Header() {
         <ul className="flex flex-row gap-4">
           <li>
             <Link
-              className="text-gray-100 hover:text-white hover:bg-onyx-700 px-3 py-2 rounded transition tracking-wide"
+              className="text-gray-100 hover:text-white hover:bg-zinc-700 px-3 py-2 rounded transition tracking-wide"
               href="/"
             >
               Startseite
@@ -30,7 +30,7 @@ export default function Header() {
           </li>
           <li>
             <Link
-              className="text-gray-100 hover:text-white hover:bg-onyx-700 px-3 py-2 rounded transition tracking-wide"
+              className="text-gray-100 hover:text-white hover:bg-zinc-700 px-3 py-2 rounded transition tracking-wide"
               href="/participants"
             >
               Teilnehmer
@@ -40,19 +40,19 @@ export default function Header() {
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
                 <li>
-                  <span className="text-gray-100 hover:text-white hover:bg-onyx-700 px-3 py-2 rounded transition tracking-wide cursor-pointer">
+                  <span className="text-gray-100 hover:text-white hover:bg-zinc-700 px-3 py-2 rounded transition tracking-wide cursor-pointer">
                     {sessionContext.session.user.email}
                   </span>
                 </li>
               </DropdownMenu.Trigger>
               <DropdownMenu.Portal>
                 <DropdownMenu.Content
-                  className="w-max transition rounded-md bg-onyx-700 py-1"
+                  className="w-max transition rounded-md bg-zinc-700 py-1"
                   align="end"
                   sideOffset={5}
                 >
                   <DropdownMenu.Item
-                    className="flex appearance-none flex flex-row items-center hover:bg-onyx-800 text-white transition px-4 py-2 cursor-pointer"
+                    className="flex appearance-none flex flex-row items-center hover:bg-zinc-800 text-white transition px-4 py-2 cursor-pointer"
                     onClick={signOut}
                   >
                     Ausloggen

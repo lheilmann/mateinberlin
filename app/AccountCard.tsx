@@ -15,18 +15,18 @@ export default function AccountCard() {
 
   return (
     <Tabs.Root
-      className="flex flex-col rounded-lg border border-onyx-700 bg-onyx-800"
+      className="flex flex-col rounded-lg border border-zinc-700 bg-zinc-800"
       defaultValue="sign-in"
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-onyx-700 data-[state=active]:border-blue-500 text-onyx-500 data-[state=active]:text-white"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-zinc-700 data-[state=active]:border-blue-500 text-zinc-500 data-[state=active]:text-white"
           value="sign-in"
         >
           Anmelden
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-onyx-700 data-[state=active]:border-blue-500 text-onyx-500 data-[state=active]:text-white"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-zinc-700 data-[state=active]:border-blue-500 text-zinc-500 data-[state=active]:text-white"
           value="register"
         >
           Registrieren
@@ -95,13 +95,13 @@ function SignInForm() {
           name="email"
           type="email"
           placeholder="E-mail"
-          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="password"
           type="password"
           placeholder="Password"
-          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <button
           type="submit"
@@ -168,19 +168,19 @@ function SignUpForm() {
           name="name"
           type="text"
           placeholder="Name"
-          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="email"
           type="email"
           placeholder="E-mail"
-          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="password"
           type="password"
           placeholder="Password"
-          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <button
           type="submit"
