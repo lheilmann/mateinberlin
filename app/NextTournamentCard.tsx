@@ -1,21 +1,33 @@
 "use client";
 
+import { Field, Form, Formik } from "formik";
+import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
 import supabase from "../supabase";
-import { Formik } from "formik";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
 
-async function createParticipant(values) {
-  await supabase.from("participants").insert({
-    ...values,
-  });
+export default function NextTournamentCard() {
+  const user = useUser();
+
+  // useSessionContext
+
+  return (
+    <>
+      <div className="p-4 rounded-lg border border-onyx-700 bg-onyx-800">
+        <h2>Nächstes Turnier 3. November</h2>
+        <CreateParticipantForm />
+      </div>
+    </>
+  );
 }
 
-export default function CreateParticipantForm() {
+function CreateParticipantForm() {
   const router = useRouter();
 
   const onSubmit = async (values, { resetForm }) => {
-    await createParticipant(values);
+    await supabase.from("participants").insert({
+      ...values,
+    });
     router.refresh();
     resetForm();
   };

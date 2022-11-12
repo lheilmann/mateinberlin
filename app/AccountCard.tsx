@@ -1,14 +1,54 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import { useUser, useSupabaseClient } from "@supabase/auth-helpers-react";
+import {
+  useSupabaseClient,
+  useSessionContext,
+} from "@supabase/auth-helpers-react";
+import * as Tabs from "@radix-ui/react-tabs";
 
 export default function AccountCard() {
-  const user = useUser();
+  const sessionContext = useSessionContext();
+
+  if (sessionContext.isLoading) return null;
+  if (sessionContext.session?.user) return null;
+
   return (
-    <div className="p-4 rounded border border-transparent hover:border-gray-400 transition">
-      {user ? <div>Signed in as {user.email}</div> : <SignInForm />}
-    </div>
+    <Tabs.Root
+      className="flex flex-col rounded-lg border border-onyx-700 bg-onyx-800"
+      defaultValue="sign-in"
+    >
+      <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
+        <Tabs.Trigger
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-onyx-700 data-[state=active]:border-blue-500 text-onyx-500 data-[state=active]:text-white"
+          value="sign-in"
+        >
+          Anmelden
+        </Tabs.Trigger>
+        <Tabs.Trigger
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-onyx-700 data-[state=active]:border-blue-500 text-onyx-500 data-[state=active]:text-white"
+          value="register"
+        >
+          Registrieren
+        </Tabs.Trigger>
+      </Tabs.List>
+      <Tabs.Content className="p-4" value="sign-in">
+        <div className="flex flex-col gap-4">
+          <p className="text-white">
+            Du hast schon einen Account? Dann melde dich hier an.
+          </p>
+          <SignInForm />
+        </div>
+      </Tabs.Content>
+      <Tabs.Content className="p-4" value="register">
+        <div className="flex flex-col gap-4">
+          <p className="text-white">
+            Du bist neu? Registrier dich hier und mach mit!
+          </p>
+          <SignUpForm />
+        </div>
+      </Tabs.Content>
+    </Tabs.Root>
   );
 }
 
@@ -16,29 +56,30 @@ function SignInForm() {
   const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values) => {
-    const res = await supabaseClient.auth.signInWithOtp({
+    await supabaseClient.auth.signInWithPassword({
       email: values.email,
-      options: {
-        data: {
-          name: values.name,
-        },
-      },
+      password: values.password,
     });
-    console.log(res);
   };
 
   const initialValues = {
     email: "",
-    name: "",
+    password: "",
   };
 
   const validate = (values) => {
     let errors: any = {};
     if (!values.email) {
-      errors.email = "Tell us your email address to sign in";
+      errors.email = "Deine E-Mail-Addresse fehlt";
     }
-    if (!values.name) {
-      errors.name = "Tell us your name";
+    if (
+      values.email &&
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
+    ) {
+      errors.email = "Deine E-Mail-Addresse sieht komisch aus";
+    }
+    if (!values.password) {
+      errors.password = "Dein Passwort fehlt";
     }
     return errors;
   };
@@ -54,19 +95,98 @@ function SignInForm() {
           name="email"
           type="email"
           placeholder="E-mail"
-          className="appearance-none p-2 rounded text-onyx-900"
+          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
         />
         <Field
-          name="name"
-          type="text"
-          placeholder="Name"
-          className="appearance-none p-2 rounded text-onyx-900"
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
         />
         <button
           type="submit"
           className="border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition"
         >
-          Link senden
+          Anmelden
+        </button>
+      </Form>
+    </Formik>
+  );
+}
+
+function SignUpForm() {
+  const supabaseClient = useSupabaseClient();
+
+  const onSubmit = async (values) => {
+    await supabaseClient.auth.signUp({
+      email: values.email,
+      password: values.password,
+    });
+  };
+
+  const initialValues = {
+    name: "",
+    email: "",
+    password: "",
+  };
+
+  const validate = (values) => {
+    let errors: any = {};
+    if (!values.name) {
+      errors.name = "Dein Name fehlt";
+    }
+    if (values.name && values.name.length < 6) {
+      errors.name = "Dein Name muss mindestens 6 Zeichen lang sein";
+    }
+    if (!values.email) {
+      errors.email = "Deine E-Mail-Addresse fehlt";
+    }
+    if (
+      values.email &&
+      !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
+    ) {
+      errors.email = "Deine E-Mail-Addresse sieht komisch aus";
+    }
+    if (!values.password) {
+      errors.password = "Dein Passwort fehlt";
+    }
+    if (values.password && values.password.length < 6) {
+      errors.password = "Dein Password muss mindestens 6 Zeichen lang sein";
+    }
+    console.log(errors);
+    return errors;
+  };
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      validate={validate}
+    >
+      <Form className="flex flex-col gap-6 max-w-sm">
+        <Field
+          name="name"
+          type="text"
+          placeholder="Name"
+          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+        />
+        <Field
+          name="email"
+          type="email"
+          placeholder="E-mail"
+          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+        />
+        <Field
+          name="password"
+          type="password"
+          placeholder="Password"
+          className="appearance-none p-2 rounded text-onyx-900 placeholder:text-onyx-500"
+        />
+        <button
+          type="submit"
+          className="border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition"
+        >
+          Registrieren
         </button>
       </Form>
     </Formik>
