@@ -31,9 +31,9 @@ export default function Header() {
           <li>
             <Link
               className="text-gray-100 hover:text-white hover:bg-zinc-700 px-3 py-2 rounded transition tracking-wide"
-              href="/participants"
+              href="/tournaments"
             >
-              Teilnehmer
+              Turniere
             </Link>
           </li>
           {!sessionContext.isLoading && sessionContext.session && (

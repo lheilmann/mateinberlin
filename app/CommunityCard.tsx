@@ -1,16 +1,10 @@
 "use client";
 
-import { Field, Form, Formik } from "formik";
-import {
-  useUser,
-  useSupabaseClient,
-  useSessionContext,
-} from "@supabase/auth-helpers-react";
-import supabase from "../supabase";
-import { useRouter } from "next/navigation";
-import Script from "next/script";
-
-export default function CommunityCard() {
+type Props = {
+  numberOfTournaments: number;
+  numberOfProfiles: number;
+};
+export default function CommunityCard(props: Props) {
   return (
     <>
       <div className="flex flex-col p-4 rounded-lg border border-zinc-700 bg-zinc-800">
@@ -19,11 +13,11 @@ export default function CommunityCard() {
         </span>
         <div className="flex flex-col items-start justify-center py-4 gap-4">
           <div className="flex flex-1 items-end justify-start gap-2">
-            <span className="text-6xl">1</span>
-            <span className="text-zinc-500">Turnier</span>
+            <span className="text-6xl">{props.numberOfTournaments}</span>
+            <span className="text-zinc-500">Turniere</span>
           </div>
           <div className="flex flex-1 items-end justify-start gap-2">
-            <span className="text-6xl">26</span>
+            <span className="text-6xl">{props.numberOfProfiles}</span>
             <span className="text-zinc-500">Spieler*innen</span>
           </div>
         </div>

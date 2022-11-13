@@ -2,10 +2,24 @@ import AccountCard from "./AccountCard";
 import NextTournamentCard from "./NextTournamentCard";
 import CommunityCard from "./CommunityCard";
 import RankingCard from "./RankingCard";
+import supabase from "../supabase";
+import _ from "lodash";
+import { isAfter, isBefore } from "date-fns";
 
 export const revalidate = 0;
 
 export default async function Page() {
+  const { data: tournaments } = await supabase.from("tournaments").select();
+  const { data: profiles } = await supabase.from("profiles").select();
+
+  const nextTournaments = _.orderBy(
+    tournaments.filter(
+      (tournament) => !isBefore(new Date(tournament.date), new Date())
+    ),
+    "date"
+  );
+  const nextTournament = nextTournaments.length > 0 ? nextTournaments[0] : null;
+
   return (
     <div className="flex flex-col gap-10">
       <section className="flex items-center justify-center w-full">
@@ -15,8 +29,11 @@ export default async function Page() {
       </section>
       <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <AccountCard />
-        <NextTournamentCard />
-        <CommunityCard />
+        <NextTournamentCard nextTournament={nextTournament} />
+        <CommunityCard
+          numberOfTournaments={tournaments.length}
+          numberOfProfiles={profiles.length}
+        />
         <RankingCard />
       </section>
     </div>

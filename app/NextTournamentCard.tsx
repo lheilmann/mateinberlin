@@ -2,15 +2,18 @@
 
 import { Field, Form, Formik } from "formik";
 import {
-  useUser,
-  useSupabaseClient,
   useSessionContext,
+  useSupabaseClient,
 } from "@supabase/auth-helpers-react";
-import supabase from "../supabase";
 import { useRouter } from "next/navigation";
 import Script from "next/script";
+import { format } from "date-fns";
+import { de } from "date-fns/locale";
 
-export default function NextTournamentCard() {
+type Props = {
+  nextTournament: any;
+};
+export default function NextTournamentCard(props: Props) {
   const sessionContext = useSessionContext();
   const user =
     !sessionContext.isLoading &&
@@ -23,8 +26,18 @@ export default function NextTournamentCard() {
         <span className="text-zinc-500 uppercase tracking-wider">
           Nächstes Turnier
         </span>
-        <h2 className="text-2xl">3. November 2022</h2>
-        {user ? <CreateParticipantForm /> : <div></div>}
+        {props.nextTournament ? (
+          <div className="flex flex-col gap-2">
+            <h2 className="text-2xl">
+              {format(new Date(props.nextTournament.date), "PPP", {
+                locale: de,
+              })}
+            </h2>
+            {user ? <CreateParticipantForm /> : <div></div>}
+          </div>
+        ) : (
+          <h2 className="text-2xl italic">tba</h2>
+        )}
       </div>
     </>
   );
@@ -32,9 +45,10 @@ export default function NextTournamentCard() {
 
 function CreateParticipantForm() {
   const router = useRouter();
+  const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values, { resetForm }) => {
-    await supabase.from("participants").insert({
+    await supabaseClient.from("participants").insert({
       ...values,
     });
     router.refresh();
