@@ -100,7 +100,7 @@ function CreateParticipantDialog(props: DialogProps) {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
         <button
-          className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition"
+          className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition mt-2"
           style={{ boxShadow: `var(--backlight)` }}
         >
           <span>Ich bin dabei</span>
@@ -115,13 +115,13 @@ function CreateParticipantDialog(props: DialogProps) {
           </Dialog.Title>
           <div className="flex">
             <button
-              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-l-md bg-zinc-700 hover:bg-zinc-800 hover:text-zinc-400"
+              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-l-md bg-zinc-700 hover:bg-zinc-800 hover:text-zinc-300 transition"
               onClick={() => participate(true)}
             >
               Ja
             </button>
             <button
-              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-r-md bg-zinc-700 border-l-0 hover:bg-zinc-800 hover:text-zinc-400"
+              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-r-md bg-zinc-700 border-l-0 hover:bg-zinc-800 hover:text-zinc-300 transition hover:shadow-inner"
               onClick={() => participate(false)}
             >
               Nein

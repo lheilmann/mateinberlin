@@ -153,7 +153,6 @@ function SignUpForm() {
     if (values.password && values.password.length < 6) {
       errors.password = "Dein Password muss mindestens 6 Zeichen lang sein";
     }
-    console.log(errors);
     return errors;
   };
 

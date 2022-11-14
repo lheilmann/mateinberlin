@@ -61,7 +61,5 @@ export default function useProfile(): ReturnProps {
     }
   }, [sessionContext.session]);
 
-  console.log({ isLoading, user, profile, error });
-
   return { isLoading, user, profile, error };
 }

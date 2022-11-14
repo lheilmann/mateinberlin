@@ -1,8 +1,8 @@
 import supabase from "../../supabase";
 import CreateTournamentDialog from "./CreateTournamentDialog";
-import { format } from "date-fns";
-import { de } from "date-fns/locale";
 import _ from "lodash";
+import TournamentListItem from "./TournamentListItem";
+
 export const revalidate = 0;
 
 export default async function Page() {
@@ -19,23 +19,7 @@ export default async function Page() {
           Turniere
         </h1>
         {_.orderBy(tournaments, "date").map((tournament) => (
-          <div
-            key={tournament.id}
-            className="flex flex-col rounded-lg border border-zinc-700 bg-zinc-800 p-4 w-full"
-          >
-            <h2 className="text-xl">
-              {format(
-                new Date(tournament.date + " " + tournament.time),
-                "PPPp",
-                {
-                  locale: de,
-                }
-              )}
-            </h2>
-            <p className="text-zinc-400">
-              <span>{tournament.location}</span>
-            </p>
-          </div>
+          <TournamentListItem key={tournament.id} tournament={tournament} />
         ))}
         <CreateTournamentDialog />
       </section>
