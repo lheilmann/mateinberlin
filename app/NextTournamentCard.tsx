@@ -1,40 +1,35 @@
 "use client";
 
-import { Field, Form, Formik } from "formik";
-import {
-  useSessionContext,
-  useSupabaseClient,
-} from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
+import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import Script from "next/script";
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
+import { useEffect, useState } from "react";
+import useProfile from "../hooks/useProfile";
+import {
+  ArrowRightIcon,
+  CalendarIcon,
+  CheckIcon,
+  ClockIcon,
+  Cross2Icon,
+  PlusIcon,
+} from "@radix-ui/react-icons";
+import { useRouter } from "next/navigation";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Field, Formik } from "formik";
 
 type Props = {
   nextTournament: any;
 };
 export default function NextTournamentCard(props: Props) {
-  const sessionContext = useSessionContext();
-  const user =
-    !sessionContext.isLoading &&
-    sessionContext.session &&
-    sessionContext.session.user;
-
   return (
     <>
-      <div className="p-4 rounded-lg border border-zinc-700 bg-zinc-800">
-        <span className="text-zinc-500 uppercase tracking-wider">
+      <div className="flex flex-col gap-2 p-4 rounded-lg border border-zinc-700 bg-zinc-800">
+        <h3 className="text-zinc-500 uppercase tracking-wider">
           Nächstes Turnier
-        </span>
+        </h3>
         {props.nextTournament ? (
-          <div className="flex flex-col gap-2">
-            <h2 className="text-2xl">
-              {format(new Date(props.nextTournament.date), "PPP", {
-                locale: de,
-              })}
-            </h2>
-            {user ? <CreateParticipantForm /> : <div></div>}
-          </div>
+          <NextTournament nextTournament={props.nextTournament} />
         ) : (
           <h2 className="text-2xl italic">tba</h2>
         )}
@@ -43,63 +38,105 @@ export default function NextTournamentCard(props: Props) {
   );
 }
 
-function CreateParticipantForm() {
-  const router = useRouter();
-  const supabaseClient = useSupabaseClient();
-
-  const onSubmit = async (values, { resetForm }) => {
-    await supabaseClient.from("participants").insert({
-      ...values,
-    });
-    router.refresh();
-    resetForm();
-  };
-
-  const initialValues = {
-    board: false,
-  };
+function NextTournament(props: Props) {
+  const { profile } = useProfile();
 
   return (
     <>
-      <Formik initialValues={initialValues} onSubmit={onSubmit}>
-        {({ values }) => (
-          <Form className="flex flex-col gap-6 max-w-sm">
-            <div className="flex flex-row flex-grow items-center gap-1">
-              <Field
-                name="board"
-                type="checkbox"
-                checked={values.board}
-                className="cursor-pointer"
-              />
-              <label
-                className="inline-block text-sm cursor-pointer ml-2"
-                htmlFor="board"
-              >
-                Ich bringe ein Schachbrett mit
-              </label>
-            </div>
-            <button
-              id="confetti"
-              type="submit"
-              className="border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition"
-            >
-              Attacke
-            </button>
-          </Form>
-        )}
-      </Formik>
-      <Script
-        src="confetti.min.js"
-        onReady={() => {
-          // @ts-ignore
-          let confetti = new Confetti("confetti");
-          confetti.setCount(75);
-          confetti.setSize(1);
-          confetti.setPower(25);
-          confetti.setFade(false);
-          confetti.destroyTarget(true);
-        }}
-      />
+      <h2 className="inline-flex items-center gap-3 text-2xl">
+        <CalendarIcon width={24} height={24} className="text-zinc-400" />
+        <span>
+          {format(new Date(props.nextTournament.date), "PPP", {
+            locale: de,
+          })}
+        </span>
+      </h2>
+      <h2 className="inline-flex items-center gap-3 text-2xl">
+        <ClockIcon width={24} height={24} className="text-zinc-400" />
+        <span>
+          {format(
+            new Date(
+              props.nextTournament.date + " " + props.nextTournament.time
+            ),
+            "HH:mm",
+            {
+              locale: de,
+            }
+          )}
+        </span>
+      </h2>
+      {profile ? (
+        <CreateParticipantDialog
+          nextTournament={props.nextTournament}
+          profile={profile}
+        />
+      ) : (
+        <div className="text-zinc-500">
+          Lust dabei zu sein? Dann melde dich an oder erstell dir ein eigenes
+          Profil.
+        </div>
+      )}
     </>
+  );
+}
+
+type DialogProps = Props & {
+  profile: any;
+};
+function CreateParticipantDialog(props: DialogProps) {
+  const [open, setOpen] = useState(false);
+  const supabaseClient = useSupabaseClient();
+
+  const participate = async (withBoard: boolean) => {
+    await supabaseClient.from("participants").insert({
+      profile_id: props.profile.id,
+      tournament_id: props.nextTournament.id,
+      board: withBoard,
+    });
+    setOpen(false);
+  };
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger asChild>
+        <button
+          className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition"
+          style={{ boxShadow: `var(--backlight)` }}
+        >
+          <span>Ich bin dabei</span>
+          <ArrowRightIcon width={24} height={24} />
+        </button>
+      </Dialog.Trigger>
+      <Dialog.Portal>
+        <Dialog.Overlay className="bg-zinc-900/95 fixed inset-0" />
+        <Dialog.Content className="flex flex-col gap-4 bg-zinc-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px]">
+          <Dialog.Title className="text-white text-xl font-medium">
+            Bringst du ein Schachbrett mit?
+          </Dialog.Title>
+          <div className="flex">
+            <button
+              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-l-md bg-zinc-700 hover:bg-zinc-800 hover:text-zinc-400"
+              onClick={() => participate(true)}
+            >
+              Ja
+            </button>
+            <button
+              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-r-md bg-zinc-700 border-l-0 hover:bg-zinc-800 hover:text-zinc-400"
+              onClick={() => participate(false)}
+            >
+              Nein
+            </button>
+          </div>
+          <Dialog.Close asChild>
+            <button
+              className="text-zinc-100 absolute top-2.5 right-2.5 rounded-full h-5 w-5 inline-flex items-center justify-center bg-zinc-700"
+              aria-label="Close"
+            >
+              <Cross2Icon />
+            </button>
+          </Dialog.Close>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }
