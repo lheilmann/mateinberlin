@@ -34,7 +34,7 @@ export default function AccountCard() {
       </Tabs.List>
       <Tabs.Content className="p-4" value="sign-in">
         <div className="flex flex-col gap-4">
-          <p className="text-white">
+          <p className="text-zinc-500">
             Du hast schon einen Account? Dann melde dich hier an.
           </p>
           <SignInForm />
@@ -42,7 +42,7 @@ export default function AccountCard() {
       </Tabs.Content>
       <Tabs.Content className="p-4" value="register">
         <div className="flex flex-col gap-4">
-          <p className="text-white">
+          <p className="text-zinc-500">
             Du bist neu? Registrier dich hier und mach mit!
           </p>
           <SignUpForm />

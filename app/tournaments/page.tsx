@@ -14,7 +14,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <section className="flex flex-col gap-4 max-w-screen-lg w-full">
+      <section className="flex flex-col gap-4 max-w-7xl w-full">
         <h1 className="text-zinc-500 text-lg uppercase tracking-wider">
           Turniere
         </h1>

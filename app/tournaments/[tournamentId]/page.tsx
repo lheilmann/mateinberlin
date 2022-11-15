@@ -20,7 +20,7 @@ export default async function Page(props: Props) {
 
   return (
     <div className="flex flex-col gap-6 items-center w-full">
-      <section className="flex flex-col gap-2 max-w-screen-lg w-full">
+      <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h1 className="text-2xl">
           {format(new Date(tournament.date + " " + tournament.time), "PPPp", {
             locale: de,
@@ -30,7 +30,7 @@ export default async function Page(props: Props) {
           <span>{tournament.location}</span>
         </p>
       </section>
-      <section className="flex flex-col gap-1 max-w-screen-lg w-full">
+      <section className="flex flex-col gap-1 max-w-7xl w-full">
         <h2 className="flex text-zinc-500 uppercase tracking-wider">
           Teilnehmer
         </h2>

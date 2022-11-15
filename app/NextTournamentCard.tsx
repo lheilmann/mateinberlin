@@ -71,10 +71,10 @@ function NextTournament(props: Props) {
           profile={profile}
         />
       ) : (
-        <div className="text-zinc-500">
+        <p className="text-zinc-500">
           Lust dabei zu sein? Dann melde dich an oder erstell dir ein eigenes
           Profil.
-        </div>
+        </p>
       )}
     </>
   );
