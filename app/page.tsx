@@ -1,10 +1,10 @@
-import AccountCard from "./AccountCard";
+import AuthCard from "./AuthCard";
 import NextTournamentCard from "./NextTournamentCard";
 import CommunityCard from "./CommunityCard";
 import RankingCard from "./RankingCard";
 import supabase from "../supabase";
 import _ from "lodash";
-import { isAfter, isBefore } from "date-fns";
+import { isBefore } from "date-fns";
 
 export const revalidate = 0;
 
@@ -23,12 +23,12 @@ export default async function Page() {
   return (
     <div className="flex flex-col gap-10 w-full">
       <section className="flex items-center justify-center">
-        <h1 className="text-6xl sm:text-8xl text-center font-semibold tracking-wider text-gray-100 uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300 drop-shadow-[0_0_12px_rgba(147, 197, 253, 0.6)]">
+        <h1 className="text-6xl sm:text-8xl text-center font-semibold tracking-wider text-zinc-100 uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300 drop-shadow-[0_0_12px_rgba(147, 197, 253, 0.6)]">
           Mate in Berlin
         </h1>
       </section>
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <AccountCard />
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <AuthCard />
         <NextTournamentCard nextTournament={nextTournament} />
         <CommunityCard
           numberOfTournaments={tournaments.length}

@@ -6,8 +6,9 @@ import {
   useSessionContext,
 } from "@supabase/auth-helpers-react";
 import * as Tabs from "@radix-ui/react-tabs";
+import { useRouter } from "next/navigation";
 
-export default function AccountCard() {
+export default function AuthCard() {
   const sessionContext = useSessionContext();
 
   if (sessionContext.isLoading) return null;
@@ -94,18 +95,18 @@ function SignInForm() {
         <Field
           name="email"
           type="email"
-          placeholder="E-mail"
+          placeholder="E-Mail"
           className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Passwort"
           className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <button
           type="submit"
-          className="border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition"
+          className="border border-zinc-400 px-3 py-2 rounded hover:border-zinc-200 transition"
         >
           Anmelden
         </button>
@@ -116,12 +117,18 @@ function SignInForm() {
 
 function SignUpForm() {
   const supabaseClient = useSupabaseClient();
+  const router = useRouter();
 
   const onSubmit = async (values) => {
-    await supabaseClient.auth.signUp({
+    const { data } = await supabaseClient.auth.signUp({
       email: values.email,
       password: values.password,
     });
+    await supabaseClient
+      .from("profiles")
+      .update({ name: values.name })
+      .eq("id", data.user.id);
+    router.refresh();
   };
 
   const initialValues = {
@@ -166,24 +173,24 @@ function SignUpForm() {
         <Field
           name="name"
           type="text"
-          placeholder="Name"
+          placeholder="Benutzername (mind. 6 Zeichen)"
           className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="email"
           type="email"
-          placeholder="E-mail"
+          placeholder="E-Mail"
           className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <Field
           name="password"
           type="password"
-          placeholder="Password"
+          placeholder="Passwort (mind. 6 Zeichen)"
           className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
         />
         <button
           type="submit"
-          className="border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition"
+          className="border border-zinc-400 px-3 py-2 rounded hover:border-zinc-200 transition"
         >
           Registrieren
         </button>

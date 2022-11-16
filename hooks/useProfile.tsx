@@ -1,6 +1,10 @@
 import { User, useSessionContext } from "@supabase/auth-helpers-react";
 import { useEffect, useState } from "react";
 
+type Profile = {
+  id: string;
+  name: string;
+};
 type ReturnProps =
   | {
       isLoading: true;
@@ -17,7 +21,7 @@ type ReturnProps =
   | {
       isLoading: false;
       user: User;
-      profile: Object;
+      profile: Profile;
       error: null;
     }
   | {
@@ -53,7 +57,7 @@ export default function useProfile(): ReturnProps {
       sessionContext.supabaseClient
         .from("profiles")
         .select()
-        .eq("user_id", sessionContext.session.user.id)
+        .eq("id", sessionContext.session.user.id)
         .then((res) => {
           if (res.data.length === 0) throw new Error("Profile not found");
           setProfile(res.data[0]);

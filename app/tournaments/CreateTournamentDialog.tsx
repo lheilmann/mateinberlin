@@ -30,7 +30,7 @@ export default function CreateTournamentDialog() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="flex items-center gap-1 border border-gray-400 px-3 py-2 rounded hover:border-gray-200 transition w-max">
+        <button className="flex items-center gap-1 border border-zinc-400 px-3 py-2 rounded hover:border-zinc-200 transition w-max">
           <PlusIcon />
           <span>Turnier erstellen</span>
         </button>
