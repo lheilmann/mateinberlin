@@ -17,7 +17,7 @@ export default function TournamentListItem(props: Props) {
 
   return (
     <div
-      className="group flex justify-between rounded-lg border border-zinc-700 bg-zinc-800 p-4 pr-6 w-full cursor-pointer hover:bg-zinc-700"
+      className="group flex justify-between rounded-lg border border-emerald-700 bg-emerald-800 p-4 pr-6 w-full cursor-pointer hover:bg-emerald-700"
       onClick={() => navigateToTournament(props.tournament.id)}
     >
       <div className="flex flex-col">
@@ -30,7 +30,7 @@ export default function TournamentListItem(props: Props) {
             }
           )}
         </h2>
-        <p className="text-zinc-400">
+        <p className="text-emerald-400">
           <span>{props.tournament.location}</span>
         </p>
       </div>

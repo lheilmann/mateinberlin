@@ -27,7 +27,7 @@ function Header() {
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
                 {user && isAdmin(user) && (
-                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-zinc-400 hover:bg-zinc-800 hover:text-white">
+                  <Disclosure.Button className="inline-flex items-center justify-center rounded-md p-2 text-emerald-400 hover:bg-emerald-800 hover:text-white">
                     <span className="sr-only">Open main menu</span>
                     {open ? (
                       <XMarkIcon className="block h-6 w-6" aria-hidden="true" />
@@ -43,13 +43,13 @@ function Header() {
                     {user && isAdmin(user) && (
                       <>
                         <Link
-                          className="text-zinc-300 hover:bg-zinc-800 hover:text-white px-3 py-2 rounded transition font-medium tracking-wide"
+                          className="text-emerald-300 hover:bg-emerald-800 hover:text-white px-3 py-2 rounded transition font-medium tracking-wide"
                           href="/"
                         >
                           Startseite
                         </Link>
                         <Link
-                          className="text-zinc-300 hover:bg-zinc-800 hover:text-white px-3 py-2 rounded transition font-medium tracking-wide"
+                          className="text-emerald-300 hover:bg-emerald-800 hover:text-white px-3 py-2 rounded transition font-medium tracking-wide"
                           href="/tournaments"
                         >
                           Turniere
@@ -61,19 +61,19 @@ function Header() {
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <div className="flex">
-                          <span className="text-zinc-300 hover:bg-zinc-800 hover:text-white px-3 py-2 rounded transition tracking-wide font-medium cursor-pointer">
+                          <span className="text-emerald-300 hover:bg-emerald-800 hover:text-white px-3 py-2 rounded transition tracking-wide font-medium cursor-pointer">
                             {profile.name}
                           </span>
                         </div>
                       </DropdownMenu.Trigger>
                       <DropdownMenu.Portal>
                         <DropdownMenu.Content
-                          className="w-max transition rounded-md bg-zinc-800 py-1"
+                          className="w-max transition rounded-md bg-emerald-800 py-1"
                           align="end"
                           sideOffset={5}
                         >
                           <DropdownMenu.Item
-                            className="flex appearance-none flex flex-row items-center hover:bg-zinc-700 text-zinc-200 hover:text-white transition px-4 py-2 cursor-pointer"
+                            className="flex appearance-none flex flex-row items-center hover:bg-emerald-700 text-emerald-200 hover:text-white transition px-4 py-2 cursor-pointer"
                             onClick={signOut}
                           >
                             Ausloggen
@@ -93,7 +93,7 @@ function Header() {
                 <Disclosure.Button
                   as={Link}
                   href="/"
-                  className="text-zinc-300 hover:bg-zinc-800 hover:text-white block px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="text-emerald-300 hover:bg-emerald-800 hover:text-white block px-3 py-2 rounded text-base font-medium tracking-wide"
                   aria-current="page"
                 >
                   Startseite
@@ -101,14 +101,14 @@ function Header() {
                 <Disclosure.Button
                   as={Link}
                   href="/tournaments"
-                  className="text-zinc-300 hover:bg-zinc-800 hover:text-white block px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="text-emerald-300 hover:bg-emerald-800 hover:text-white block px-3 py-2 rounded text-base font-medium tracking-wide"
                   aria-current="page"
                 >
                   Turniere
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={signOut}
-                  className="w-full inline-flex justify-start text-zinc-300 hover:bg-zinc-800 hover:text-white px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="w-full inline-flex justify-start text-emerald-300 hover:bg-emerald-800 hover:text-white px-3 py-2 rounded text-base font-medium tracking-wide"
                   aria-current="page"
                 >
                   Ausloggen

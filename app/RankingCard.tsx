@@ -3,13 +3,13 @@
 export default function RankingCard() {
   return (
     <>
-      <div className="relative flex flex-col p-4 rounded-lg border border-zinc-700 bg-zinc-800">
+      <div className="relative flex flex-col p-4 rounded-lg border border-emerald-700 bg-emerald-800">
         <div className="flex gap-4 items-center">
-          <span className="flex text-zinc-500 uppercase tracking-wider">
+          <span className="flex text-emerald-500 uppercase tracking-wider">
             Ranking
           </span>
-          <div className="flex items-center justify-center bg-zinc-700 px-1.5 py-0.5 rounded">
-            <span className="text-sm text-zinc-400">coming soon</span>
+          <div className="flex items-center justify-center bg-emerald-700 px-1.5 py-0.5 rounded">
+            <span className="text-sm text-emerald-400">coming soon</span>
           </div>
         </div>
         <div className="flex flex-col py-4 gap-2">

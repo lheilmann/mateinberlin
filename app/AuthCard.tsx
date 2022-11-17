@@ -16,18 +16,18 @@ export default function AuthCard() {
 
   return (
     <Tabs.Root
-      className="flex flex-col rounded-lg border border-zinc-700 bg-zinc-800"
+      className="flex flex-col rounded-lg border border-emerald-700 bg-emerald-800"
       defaultValue="sign-in"
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-zinc-700 data-[state=active]:border-blue-500 text-zinc-500 data-[state=active]:text-white"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-emerald-700 data-[state=active]:border-blue-500 text-emerald-500 data-[state=active]:text-white"
           value="sign-in"
         >
           Anmelden
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-zinc-700 data-[state=active]:border-blue-500 text-zinc-500 data-[state=active]:text-white"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-emerald-700 data-[state=active]:border-blue-500 text-emerald-500 data-[state=active]:text-white"
           value="register"
         >
           Registrieren
@@ -35,7 +35,7 @@ export default function AuthCard() {
       </Tabs.List>
       <Tabs.Content className="p-4" value="sign-in">
         <div className="flex flex-col gap-4">
-          <p className="text-zinc-500">
+          <p className="text-emerald-500">
             Du hast schon einen Account? Dann melde dich hier an.
           </p>
           <SignInForm />
@@ -43,7 +43,7 @@ export default function AuthCard() {
       </Tabs.Content>
       <Tabs.Content className="p-4" value="register">
         <div className="flex flex-col gap-4">
-          <p className="text-zinc-500">
+          <p className="text-emerald-500">
             Du bist neu? Registrier dich hier und mach mit!
           </p>
           <SignUpForm />
@@ -96,17 +96,17 @@ function SignInForm() {
           name="email"
           type="email"
           placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
+          className="appearance-none p-2 rounded text-emerald-900 placeholder:text-emerald-500"
         />
         <Field
           name="password"
           type="password"
           placeholder="Passwort"
-          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
+          className="appearance-none p-2 rounded text-emerald-900 placeholder:text-emerald-500"
         />
         <button
           type="submit"
-          className="border border-zinc-400 px-3 py-2 rounded hover:border-zinc-200 transition"
+          className="border border-emerald-400 px-3 py-2 rounded hover:border-emerald-200 transition"
         >
           Anmelden
         </button>
@@ -174,23 +174,23 @@ function SignUpForm() {
           name="name"
           type="text"
           placeholder="Benutzername (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
+          className="appearance-none p-2 rounded text-emerald-900 placeholder:text-emerald-500"
         />
         <Field
           name="email"
           type="email"
           placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
+          className="appearance-none p-2 rounded text-emerald-900 placeholder:text-emerald-500"
         />
         <Field
           name="password"
           type="password"
           placeholder="Passwort (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-zinc-900 placeholder:text-zinc-500"
+          className="appearance-none p-2 rounded text-emerald-900 placeholder:text-emerald-500"
         />
         <button
           type="submit"
-          className="border border-zinc-400 px-3 py-2 rounded hover:border-zinc-200 transition"
+          className="border border-emerald-400 px-3 py-2 rounded hover:border-emerald-200 transition"
         >
           Registrieren
         </button>

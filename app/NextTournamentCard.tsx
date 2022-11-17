@@ -17,6 +17,7 @@ import {
 import { useRouter } from "next/navigation";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Field, Formik } from "formik";
+import { ArrowSmallRightIcon } from "@heroicons/react/24/outline";
 
 type Props = {
   nextTournament: any;
@@ -24,8 +25,8 @@ type Props = {
 export default function NextTournamentCard(props: Props) {
   return (
     <>
-      <div className="flex flex-col gap-2 p-4 rounded-lg border border-zinc-700 bg-zinc-800">
-        <h3 className="text-zinc-500 uppercase tracking-wider">
+      <div className="flex flex-col gap-2 p-4 rounded-lg border border-emerald-700 bg-emerald-800">
+        <h3 className="text-emerald-500 uppercase tracking-wider">
           Nächstes Turnier
         </h3>
         {props.nextTournament ? (
@@ -44,7 +45,7 @@ function NextTournament(props: Props) {
   return (
     <>
       <h2 className="inline-flex items-center gap-3 text-2xl">
-        <CalendarIcon width={24} height={24} className="text-zinc-400" />
+        <CalendarIcon width={24} height={24} className="text-emerald-400" />
         <span>
           {format(new Date(props.nextTournament.date), "PPP", {
             locale: de,
@@ -52,7 +53,7 @@ function NextTournament(props: Props) {
         </span>
       </h2>
       <h2 className="inline-flex items-center gap-3 text-2xl">
-        <ClockIcon width={24} height={24} className="text-zinc-400" />
+        <ClockIcon width={24} height={24} className="text-emerald-400" />
         <span>
           {format(
             new Date(
@@ -71,7 +72,7 @@ function NextTournament(props: Props) {
           profile={profile}
         />
       ) : (
-        <p className="text-zinc-500">
+        <p className="text-emerald-500">
           Lust dabei zu sein? Dann melde dich an oder erstell dir ein eigenes
           Profil.
         </p>
@@ -99,26 +100,30 @@ function CreateParticipantDialog(props: DialogProps) {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition mt-2 backlight">
+        {/*<button className="flex items-center justify-center gap-2 w-full bg-emerald-900 text-white text-lg h-16 rounded font-medium hover:text-emerald-400 transition mt-2 backlight">*/}
+        {/*  <span>Ich bin dabei</span>*/}
+        {/*  <ArrowRightIcon width={24} height={24} />*/}
+        {/*</button>*/}
+        <button className="group flex items-center justify-center gap-2 w-full bg-emerald-700 text-white text-lg h-16 rounded font-medium hover:text-emerald-100 hover:bg-emerald-800 transition mt-2 border border-emerald-600">
           <span>Ich bin dabei</span>
-          <ArrowRightIcon width={24} height={24} />
+          <ArrowSmallRightIcon className="h-6 w-6 text-white group-hover:translate-x-2 transition" />
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-zinc-900/95 fixed inset-0" />
-        <Dialog.Content className="flex flex-col gap-4 bg-zinc-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px]">
+        <Dialog.Overlay className="bg-emerald-900/95 fixed inset-0" />
+        <Dialog.Content className="flex flex-col gap-4 bg-emerald-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px]">
           <Dialog.Title className="text-white text-xl font-medium">
             Bringst du ein Schachbrett mit?
           </Dialog.Title>
           <div className="flex">
             <button
-              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-l-md bg-zinc-700 hover:bg-zinc-800 hover:text-zinc-300 transition"
+              className="inline-flex flex-1 justify-center border border-emerald-600 p-2 font-medium rounded-l-md bg-emerald-700 hover:bg-emerald-800 hover:text-emerald-300 transition"
               onClick={() => participate(true)}
             >
               Ja
             </button>
             <button
-              className="inline-flex flex-1 justify-center border border-zinc-600 p-2 font-medium rounded-r-md bg-zinc-700 border-l-0 hover:bg-zinc-800 hover:text-zinc-300 transition hover:shadow-inner"
+              className="inline-flex flex-1 justify-center border border-emerald-600 p-2 font-medium rounded-r-md bg-emerald-700 border-l-0 hover:bg-emerald-800 hover:text-emerald-300 transition hover:shadow-inner"
               onClick={() => participate(false)}
             >
               Nein
@@ -126,7 +131,7 @@ function CreateParticipantDialog(props: DialogProps) {
           </div>
           <Dialog.Close asChild>
             <button
-              className="text-zinc-100 absolute top-2.5 right-2.5 rounded-full h-5 w-5 inline-flex items-center justify-center bg-zinc-700"
+              className="text-emerald-100 absolute top-2.5 right-2.5 rounded-full h-5 w-5 inline-flex items-center justify-center bg-emerald-700"
               aria-label="Close"
             >
               <Cross2Icon />
