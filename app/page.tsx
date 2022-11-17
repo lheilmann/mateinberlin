@@ -22,8 +22,8 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-10 w-full">
-      <section className="flex items-center justify-center">
-        <h1 className="text-6xl sm:text-8xl text-center font-semibold tracking-wider text-zinc-100 uppercase text-transparent bg-clip-text bg-gradient-to-r from-white to-blue-300 drop-shadow-[0_0_12px_rgba(147, 197, 253, 0.6)]">
+      <section className="flex items-end justify-center hero">
+        <h1 className="text-6xl pb-20 sm:text-8xl text-center tracking-wider text-zinc-100 uppercase text-transparent bg-clip-text bg-gradient-to-r from-zinc-500/75 via-zinc-300/90 to-zinc-500/75">
           Mate in Berlin
         </h1>
       </section>

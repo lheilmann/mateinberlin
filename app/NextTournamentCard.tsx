@@ -99,10 +99,7 @@ function CreateParticipantDialog(props: DialogProps) {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <button
-          className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition mt-2"
-          style={{ boxShadow: `var(--backlight)` }}
-        >
+        <button className="flex items-center justify-center gap-2 w-full bg-zinc-900 text-white text-lg h-16 rounded font-medium hover:text-zinc-400 transition mt-2 backlight">
           <span>Ich bin dabei</span>
           <ArrowRightIcon width={24} height={24} />
         </button>
