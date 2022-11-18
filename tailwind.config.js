@@ -21,10 +21,20 @@ module.exports = {
       }),
       animation: {
         shimmer: "shimmer 3s infinite 1s",
+        "fade-in": "fade-in 150ms ease-out",
+        "fade-out": "fade-out 150ms ease-in",
       },
       keyframes: {
         shimmer: {
           "100%": { transform: "translateX(100%)" },
+        },
+        "fade-in": {
+          from: { opacity: 0 },
+          to: { opacity: 1 },
+        },
+        "fade-out": {
+          from: { opacity: 1 },
+          to: { opacity: 0 },
         },
       },
     },

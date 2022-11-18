@@ -93,9 +93,9 @@ function CreateParticipantDialog(props: DialogProps) {
         </button>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-lila-900/95 fixed inset-0" />
-        <Dialog.Content className="flex flex-col gap-4 bg-lila-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px]">
-          <Dialog.Title className="text-lila-100 text-xl font-medium">
+        <Dialog.Overlay className="bg-lila-900/95 fixed inset-0 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out" />
+        <Dialog.Content className="flex flex-col gap-4 bg-lila-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px] md:min-w-[400px] data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out">
+          <Dialog.Title className="text-lila-100 text-lg md:text-xl font-medium">
             Bringst du ein Schachbrett mit?
           </Dialog.Title>
           <div className="flex">
