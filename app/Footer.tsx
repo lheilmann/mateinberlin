@@ -3,7 +3,11 @@ export default function Footer() {
     <footer className="max-w-7xl mx-auto px-4 sm:px-10 w-full">
       <div className="mt-8 py-8 flex flex-1 items-center justify-center">
         <div className="flex space-x-6">
-          <a href="https://www.instagram.com/mate_in_berlin/">
+          <a
+            href="https://www.instagram.com/mate_in_berlin/"
+            target="_blank"
+            rel="noreferrer"
+          >
             <span className="sr-only">Instagram</span>
             <svg
               width="32"

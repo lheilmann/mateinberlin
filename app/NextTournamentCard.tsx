@@ -103,13 +103,13 @@ function CreateParticipantDialog(props: DialogProps) {
           </Dialog.Title>
           <div className="flex">
             <button
-              className="inline-flex flex-1 justify-center border border-lila-600 p-2 font-medium rounded-l-md bg-lila-700 hover:bg-lila-800 hover:text-lila-300 transition"
+              className="inline-flex flex-1 justify-center border border-lila-600 p-2 font-medium rounded-l-md bg-lila-700 hover:bg-lila-800 hover:text-lila-300 transition text-lila-100"
               onClick={() => participate(true)}
             >
               Ja
             </button>
             <button
-              className="inline-flex flex-1 justify-center border border-lila-600 p-2 font-medium rounded-r-md bg-lila-700 border-l-0 hover:bg-lila-800 hover:text-lila-300 transition hover:shadow-inner"
+              className="inline-flex flex-1 justify-center border border-lila-600 p-2 font-medium rounded-r-md bg-lila-700 border-l-0 hover:bg-lila-800 hover:text-lila-300 transition hover:shadow-inner text-lila-100"
               onClick={() => participate(false)}
             >
               Nein

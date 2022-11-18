@@ -34,10 +34,6 @@ export default function CreateTournamentDialog() {
           <PlusIcon strokeWidth="2px" width={20} height={20} />
           <span>Turnier erstellen</span>
         </div>
-        {/*<div className="flex items-center gap-1 border border-lila-600 px-3 py-2 rounded hover:border-lila-200 transition w-max hover:text-lila-100 text-lila-300">*/}
-        {/*  <PlusIcon />*/}
-        {/*  <span>Turnier erstellen</span>*/}
-        {/*</div>*/}
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="bg-lila-900/70 fixed inset-0" />

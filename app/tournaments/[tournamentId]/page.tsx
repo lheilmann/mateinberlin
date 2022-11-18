@@ -17,7 +17,14 @@ export default async function Page(props: Props) {
 
   const { data: participants } = await supabase
     .from("participants")
-    .select()
+    .select(
+      `
+    *,
+    profiles (
+      name
+    )
+  `
+    )
     .eq("tournament_id", props.params.tournamentId);
 
   return (
@@ -35,12 +42,12 @@ export default async function Page(props: Props) {
       <hr className="border-lila-800 w-full" />
       <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="flex text-lila-400 uppercase tracking-wider">
-          Teilnehmer
+          Teilnehmer ({participants.length})
         </h2>
         {participants.map((participant, index) => {
           return (
             <div key={index} className="text-lila-100">
-              {participant.profile_id}
+              {participant.profiles.name}
             </div>
           );
         })}
