@@ -1,18 +1,24 @@
 "use client";
 
+import { useUser } from "@supabase/auth-helpers-react";
+
 export default function RankingCard() {
+  const user = useUser();
+
+  if (!user) return null;
+
   return (
     <>
-      <div className="relative flex flex-col p-4 rounded-lg border border-emerald-700 bg-emerald-800">
+      <div className="relative flex flex-col p-4 rounded-lg border border-lila-700 bg-lila-800">
         <div className="flex gap-4 items-center">
-          <span className="flex text-emerald-500 uppercase tracking-wider">
+          <span className="flex text-lila-400 uppercase tracking-wider">
             Ranking
           </span>
-          <div className="flex items-center justify-center bg-emerald-700 px-1.5 py-0.5 rounded">
-            <span className="text-sm text-emerald-400">coming soon</span>
+          <div className="flex items-center justify-center bg-lila-700 px-1.5 py-0.5 rounded">
+            <span className="text-sm text-lila-300">coming soon</span>
           </div>
         </div>
-        <div className="flex flex-col py-4 gap-2">
+        <div className="flex flex-col py-4 gap-2 text-lila-300">
           <div className="flex flex-row w-full items-center justify-between">
             <span>skdjhfsd</span>
             <span className="font-mono tracking-wider">7040</span>

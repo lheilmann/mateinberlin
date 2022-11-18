@@ -17,11 +17,11 @@ export default function TournamentListItem(props: Props) {
 
   return (
     <div
-      className="group flex justify-between rounded-lg border border-emerald-700 bg-emerald-800 p-4 pr-6 w-full cursor-pointer hover:bg-emerald-700"
+      className="group flex justify-between rounded-lg border border-lila-700 bg-lila-800 p-4 pr-6 w-full cursor-pointer hover:bg-lila-700 transition"
       onClick={() => navigateToTournament(props.tournament.id)}
     >
       <div className="flex flex-col">
-        <h2 className="text-xl">
+        <h2 className="text-xl text-lila-100">
           {format(
             new Date(props.tournament.date + " " + props.tournament.time),
             "PPPp",
@@ -30,12 +30,12 @@ export default function TournamentListItem(props: Props) {
             }
           )}
         </h2>
-        <p className="text-emerald-400">
+        <p className="text-lila-400">
           <span>{props.tournament.location}</span>
         </p>
       </div>
       <div className="flex items-center">
-        <ArrowSmallRightIcon className="h-6 w-6 text-white group-hover:translate-x-2 transition" />
+        <ArrowSmallRightIcon className="h-6 w-6 text-lila-100 group-hover:translate-x-2 transition" />
       </div>
     </div>
   );

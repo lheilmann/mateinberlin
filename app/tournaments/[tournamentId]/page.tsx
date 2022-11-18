@@ -28,12 +28,12 @@ export default async function Page(props: Props) {
             locale: de,
           })}
         </h1>
-        <p className="text-emerald-400">
+        <p className="text-lila-400">
           <span>{tournament.location}</span>
         </p>
       </section>
       <section className="flex flex-col gap-1 max-w-7xl w-full">
-        <h2 className="flex text-emerald-500 uppercase tracking-wider">
+        <h2 className="flex text-lila-400 uppercase tracking-wider">
           Teilnehmer
         </h2>
         {participants.map((participant, index) => {

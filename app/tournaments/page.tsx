@@ -3,6 +3,7 @@ import _ from "lodash";
 import TournamentListItem from "./TournamentListItem";
 import CreateTournamentDialog from "./CreateTournamentDialog";
 import React from "react";
+import Skeleton from "../../components/Skeleton";
 
 export const revalidate = 0;
 

@@ -6,7 +6,7 @@ type Props = {
 };
 export default function Layout(props: Props) {
   return (
-    <div className="flex flex-col items-center w-full">
+    <div className="flex flex-col items-center w-full mt-4">
       <section className="max-w-7xl w-full">{props.children}</section>
     </div>
   );
