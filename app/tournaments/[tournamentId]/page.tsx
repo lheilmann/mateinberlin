@@ -23,21 +23,26 @@ export default async function Page(props: Props) {
   return (
     <div className="flex flex-col gap-6 items-center w-full">
       <section className="flex flex-col gap-2 max-w-7xl w-full">
-        <h1 className="text-2xl">
+        <h1 className="text-2xl text-lila-100">
           {format(new Date(tournament.date + " " + tournament.time), "PPPp", {
             locale: de,
           })}
         </h1>
-        <p className="text-lila-400">
+        <p className="text-lila-300">
           <span>{tournament.location}</span>
         </p>
       </section>
-      <section className="flex flex-col gap-1 max-w-7xl w-full">
+      <hr className="border-lila-800 w-full" />
+      <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="flex text-lila-400 uppercase tracking-wider">
           Teilnehmer
         </h2>
         {participants.map((participant, index) => {
-          return <div key={index}>{participant.profile_id}</div>;
+          return (
+            <div key={index} className="text-lila-100">
+              {participant.profile_id}
+            </div>
+          );
         })}
       </section>
     </div>

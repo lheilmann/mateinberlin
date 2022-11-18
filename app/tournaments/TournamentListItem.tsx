@@ -30,7 +30,7 @@ export default function TournamentListItem(props: Props) {
             }
           )}
         </h2>
-        <p className="text-lila-400">
+        <p className="text-lila-300">
           <span>{props.tournament.location}</span>
         </p>
       </div>
