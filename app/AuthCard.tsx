@@ -21,13 +21,13 @@ export default function AuthCard() {
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-blue-500 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
           value="sign-in"
         >
           Anmelden
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-blue-500 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
           value="register"
         >
           Registrieren
@@ -96,17 +96,17 @@ function SignInForm() {
           name="email"
           type="email"
           placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-400"
+          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
         />
         <Field
           name="password"
           type="password"
           placeholder="Passwort"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-400"
+          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
         />
         <button
           type="submit"
-          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition"
+          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition text-lila-100"
         >
           Anmelden
         </button>
@@ -174,23 +174,23 @@ function SignUpForm() {
           name="name"
           type="text"
           placeholder="Benutzername (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-400"
+          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
         />
         <Field
           name="email"
           type="email"
           placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-400"
+          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
         />
         <Field
           name="password"
           type="password"
           placeholder="Passwort (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-400"
+          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
         />
         <button
           type="submit"
-          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition"
+          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition text-lila-100"
         >
           Registrieren
         </button>
