@@ -23,7 +23,7 @@ export default async function RootLayout(props: Props) {
         <Provider>
           <div className="flex flex-col h-screen justify-between">
             <Header />
-            <main className="max-w-7xl w-full mx-auto mb-auto px-2 sm:px-10">
+            <main className="max-w-7xl w-full mx-auto mb-auto px-4 sm:px-10">
               {props.children}
             </main>
             <Footer />
