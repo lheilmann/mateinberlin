@@ -1,6 +1,8 @@
 import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import supabase from "../../../supabase";
+import Badge from "../../../components/Badge";
+import { PlusIcon } from "@radix-ui/react-icons";
 
 export const revalidate = 0;
 
@@ -27,6 +29,10 @@ export default async function Page(props: Props) {
     )
     .eq("tournament_id", props.params.tournamentId);
 
+  const numberOfBoards = participants.filter(
+    (participant) => participant.board
+  ).length;
+
   return (
     <div className="flex flex-col gap-6 items-center w-full">
       <section className="flex flex-col gap-2 max-w-7xl w-full">
@@ -42,12 +48,31 @@ export default async function Page(props: Props) {
       <hr className="border-lila-800 w-full" />
       <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="flex text-lila-400 uppercase tracking-wider">
-          Teilnehmer ({participants.length})
+          Teilnehmer*innen ({participants.length}/{numberOfBoards})
         </h2>
         {participants.map((participant, index) => {
           return (
-            <div key={index} className="text-lila-100">
+            <div key={index} className="text-lila-100 flex items-center gap-4">
               {participant.profiles.name}
+              {participant.board && (
+                <Badge>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 4.5v15m7.5-7.5h-15"
+                    />
+                  </svg>
+                  <span>Schachbrett</span>
+                </Badge>
+              )}
             </div>
           );
         })}
