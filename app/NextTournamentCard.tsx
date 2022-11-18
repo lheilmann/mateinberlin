@@ -1,7 +1,7 @@
 "use client";
 
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { format } from "date-fns";
+import { format, setHours } from "date-fns";
 import { de } from "date-fns/locale";
 import { useState } from "react";
 import useProfile from "../hooks/useProfile";
@@ -32,12 +32,15 @@ export default function NextTournamentCard(props: Props) {
 function NextTournament(props: Props) {
   const { profile } = useProfile();
 
+  const [hours] = props.nextTournament.time.split(":");
+  const dateTime = setHours(new Date(props.nextTournament.date), hours);
+
   return (
     <>
       <h2 className="inline-flex items-center gap-3 text-2xl">
         <CalendarIcon width={24} height={24} className="text-lila-400" />
         <span className="text-lila-100">
-          {format(new Date(props.nextTournament.date), "PPP", {
+          {format(dateTime, "PPP", {
             locale: de,
           })}
         </span>
@@ -45,15 +48,9 @@ function NextTournament(props: Props) {
       <h2 className="inline-flex items-center gap-3 text-2xl">
         <ClockIcon width={24} height={24} className="text-lila-400" />
         <span className="text-lila-100">
-          {format(
-            new Date(
-              props.nextTournament.date + " " + props.nextTournament.time
-            ),
-            "HH:mm",
-            {
-              locale: de,
-            }
-          )}
+          {format(dateTime, "HH:mm", {
+            locale: de,
+          })}
         </span>
       </h2>
       {profile ? (
