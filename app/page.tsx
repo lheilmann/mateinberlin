@@ -2,10 +2,10 @@ import AuthCard from "./AuthCard";
 import NextTournamentCard from "./NextTournamentCard";
 import CommunityCard from "./CommunityCard";
 import RankingCard from "./RankingCard";
-import supabase from "../supabase";
 import _ from "lodash";
 import { isBefore } from "date-fns";
 import HeroSection from "./HeroSection";
+import supabase from "~lib/supabase";
 
 export const revalidate = 0;
 

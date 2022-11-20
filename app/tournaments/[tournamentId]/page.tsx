@@ -1,12 +1,12 @@
 import { format, setHours } from "date-fns";
 import { de } from "date-fns/locale";
-import supabase from "../../../supabase";
-import Badge from "../../../components/Badge";
 import {
   CalendarIcon,
   ClockIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
+import supabase from "~lib/supabase";
+import Badge from "~components/Badge";
 
 export const revalidate = 0;
 
@@ -50,26 +50,29 @@ export default async function Page(props: Props) {
     <div className="flex flex-col gap-6 items-center w-full">
       <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="inline-flex items-center gap-3 text-2xl">
-          <CalendarIcon width={24} height={24} className="text-lila-400" />
-          <span className="text-lila-100">{date}</span>
+          <CalendarIcon width={24} height={24} className="text-primary-400" />
+          <span className="text-primary-100">{date}</span>
         </h2>
         <h2 className="inline-flex items-center gap-3 text-2xl">
-          <ClockIcon width={24} height={24} className="text-lila-400" />
-          <span className="text-lila-100">{time}</span>
+          <ClockIcon width={24} height={24} className="text-primary-400" />
+          <span className="text-primary-100">{time}</span>
         </h2>
         <h2 className="inline-flex items-center gap-3 text-2xl">
-          <MapPinIcon width={24} height={24} className="text-lila-400" />
-          <span className="text-lila-100">{tournament.location}</span>
+          <MapPinIcon width={24} height={24} className="text-primary-400" />
+          <span className="text-primary-100">{tournament.location}</span>
         </h2>
       </section>
-      <hr className="border-lila-800 w-full" />
+      <hr className="border-primary-800 w-full" />
       <section className="flex flex-col gap-2 max-w-7xl w-full">
-        <h2 className="flex text-lila-400 uppercase tracking-wider">
+        <h2 className="flex text-primary-400 uppercase tracking-wider">
           Teilnehmer*innen ({participants.length}/{numberOfBoards})
         </h2>
         {participants.map((participant, index) => {
           return (
-            <div key={index} className="text-lila-100 flex items-center gap-4">
+            <div
+              key={index}
+              className="text-primary-100 flex items-center gap-4"
+            >
               {participant.profiles.name}
               {participant.has_board && (
                 <Badge>

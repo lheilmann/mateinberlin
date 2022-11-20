@@ -4,16 +4,16 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        lila: {
-          100: "#f3eafb",
-          200: "#e7d4f7",
-          300: "#c295ea",
-          400: "#9e55dd",
-          500: "#852ad5",
-          600: "#501980",
-          700: "#3b135e",
-          800: "#280d40",
-          900: "#150722",
+        primary: {
+          100: "hsl(var(--tw-color-ocean-100))",
+          200: "hsl(var(--tw-color-ocean-200))",
+          300: "hsl(var(--tw-color-ocean-300))",
+          400: "hsl(var(--tw-color-ocean-400))",
+          500: "hsl(var(--tw-color-ocean-500))",
+          600: "hsl(var(--tw-color-ocean-600))",
+          700: "hsl(var(--tw-color-ocean-700))",
+          800: "hsl(var(--tw-color-ocean-800))",
+          900: "hsl(var(--tw-color-ocean-900))",
         },
       },
       boxShadow: ({ theme }) => ({

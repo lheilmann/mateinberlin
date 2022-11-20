@@ -22,7 +22,27 @@
       {
         "name": "next"
       }
-    ]
+    ],
+    "paths": {
+      "~lib": [
+        "./lib"
+      ],
+      "~lib/*": [
+        "./lib/*"
+      ],
+      "~components": [
+        "./components"
+      ],
+      "~components/*": [
+        "./components/*"
+      ],
+      "~hooks": [
+        "./hooks"
+      ],
+      "~hooks/*": [
+        "./hooks/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",

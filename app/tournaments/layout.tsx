@@ -1,4 +1,3 @@
-import CreateTournamentDialog from "./CreateTournamentDialog";
 import React from "react";
 
 type Props = {

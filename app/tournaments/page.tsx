@@ -1,9 +1,8 @@
-import supabase from "../../supabase";
 import _ from "lodash";
 import TournamentListItem from "./TournamentListItem";
 import CreateTournamentDialog from "./CreateTournamentDialog";
 import React from "react";
-import Skeleton from "../../components/Skeleton";
+import supabase from "~lib/supabase";
 
 export const revalidate = 0;
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@supabase/auth-helpers-react";
-import Badge from "../components/Badge";
+import Badge from "~components/Badge";
 
 export default function RankingCard() {
   const user = useUser();
@@ -10,14 +10,14 @@ export default function RankingCard() {
 
   return (
     <>
-      <div className="relative flex flex-col p-4 rounded-lg border border-lila-700 bg-lila-800">
+      <div className="relative flex flex-col p-4 rounded-lg border border-primary-700 bg-primary-800">
         <div className="flex gap-4 items-center">
-          <span className="flex text-lila-400 uppercase tracking-wider">
+          <span className="flex text-primary-400 uppercase tracking-wider">
             Ranking
           </span>
           <Badge>coming soon</Badge>
         </div>
-        <div className="flex flex-col py-4 gap-2 text-lila-300">
+        <div className="flex flex-col py-4 gap-2 text-primary-300">
           <div className="flex flex-row w-full items-center justify-between">
             <span>skdjhfsd</span>
             <span className="font-mono tracking-wider">7040</span>

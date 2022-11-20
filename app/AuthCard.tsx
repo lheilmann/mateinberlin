@@ -20,19 +20,19 @@ export default function AuthCard() {
 
   return (
     <Tabs.Root
-      className="flex flex-col rounded-lg border border-lila-700 bg-lila-800"
+      className="flex flex-col rounded-lg border border-primary-700 bg-primary-800"
       defaultValue="sign-in"
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-primary-700 data-[state=active]:border-primary-100 text-primary-400 data-[state=active]:text-primary-100"
           value="sign-in"
         >
           <ArrowLeftOnRectangleIcon className="h-5 w-5" />
           <span>Anmelden</span>
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-primary-700 data-[state=active]:border-primary-100 text-primary-400 data-[state=active]:text-primary-100"
           value="register"
         >
           <UserPlusIcon className="h-5 w-5" />
@@ -41,7 +41,7 @@ export default function AuthCard() {
       </Tabs.List>
       <Tabs.Content className="p-4" value="sign-in">
         <div className="flex flex-col gap-4">
-          <p className="text-lila-400">
+          <p className="text-primary-400">
             Du hast schon ein Profil? Dann melde dich hier an.
           </p>
           <SignInForm />
@@ -49,7 +49,7 @@ export default function AuthCard() {
       </Tabs.Content>
       <Tabs.Content className="p-4" value="register">
         <div className="flex flex-col gap-4">
-          <p className="text-lila-400">
+          <p className="text-primary-400">
             Du bist neu? Registrier dich hier und mach mit!
           </p>
           <SignUpForm />
@@ -104,7 +104,7 @@ function SignInForm() {
               name="email"
               type="email"
               placeholder="E-Mail-Adresse"
-              className="appearance-none p-2 rounded bg-lila-600 border border-lila-500 text-lila-100 placeholder:text-lila-300 w-full"
+              className="appearance-none p-2 rounded bg-primary-600 border border-primary-500 text-primary-100 placeholder:text-primary-300 w-full"
             />
           </fieldset>
           <fieldset>
@@ -112,13 +112,13 @@ function SignInForm() {
               name="password"
               type="password"
               placeholder="Passwort"
-              className="appearance-none p-2 rounded bg-lila-600 border border-lila-500 text-lila-100 placeholder:text-lila-300 w-full"
+              className="appearance-none p-2 rounded bg-primary-600 border border-primary-500 text-primary-100 placeholder:text-primary-300 w-full"
             />
           </fieldset>
           <button
             type="submit"
             disabled={form.isSubmitting}
-            className="group flex items-center justify-center gap-3 w-full bg-lila-700 text-lila-100 h-12 rounded font-medium hover:text-lila-200 hover:bg-lila-800 transition border border-lila-600"
+            className="group flex items-center justify-center gap-3 w-full bg-primary-700 text-primary-100 h-12 rounded font-medium hover:text-primary-200 hover:bg-primary-800 transition border border-primary-600"
           >
             <span>Anmelden</span>
             {/*<RocketLaunchIcon className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />*/}
@@ -188,23 +188,23 @@ function SignUpForm() {
           name="name"
           type="text"
           placeholder="Benutzername (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
+          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
         />
         <Field
           name="email"
           type="email"
           placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
+          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
         />
         <Field
           name="password"
           type="password"
           placeholder="Passwort (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
+          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
         />
         <button
           type="submit"
-          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition text-lila-100"
+          className="border border-primary-400 px-3 py-2 rounded hover:border-primary-200 transition text-primary-100"
         >
           Registrieren
         </button>
