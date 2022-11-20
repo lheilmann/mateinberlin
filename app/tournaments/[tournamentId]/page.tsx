@@ -1,7 +1,12 @@
-import { format } from "date-fns";
+import { format, setHours } from "date-fns";
 import { de } from "date-fns/locale";
 import supabase from "../../../supabase";
 import Badge from "../../../components/Badge";
+import {
+  CalendarIcon,
+  ClockIcon,
+  MapPinIcon,
+} from "@heroicons/react/24/outline";
 
 export const revalidate = 0;
 
@@ -9,14 +14,14 @@ type Props = {
   params: { tournamentId: string };
 };
 export default async function Page(props: Props) {
-  const { data: tournaments } = await supabase
+  const { data: tournament } = await supabase
     .from("tournaments")
     .select()
-    .eq("id", props.params.tournamentId);
+    .eq("id", props.params.tournamentId)
+    .limit(1)
+    .single();
 
-  const tournament = tournaments[0];
-
-  const { data: profileTournaments } = await supabase
+  const { data: participants } = await supabase
     .from("profile_tournament")
     .select(
       `
@@ -26,34 +31,47 @@ export default async function Page(props: Props) {
     )
   `
     )
-    .eq("tournament_id", props.params.tournamentId);
+    .eq("tournament_id", props.params.tournamentId)
+    .eq("participates", true);
 
-  const numberOfBoards = profileTournaments.filter(
+  const numberOfBoards = participants.filter(
     (participant) => participant.has_board
   ).length;
+
+  const [hours] = tournament.time.split(":");
+  const date = format(new Date(tournament.date), "PPP", {
+    locale: de,
+  });
+  const time = format(setHours(new Date(tournament.date), hours), "HH:mm", {
+    locale: de,
+  });
 
   return (
     <div className="flex flex-col gap-6 items-center w-full">
       <section className="flex flex-col gap-2 max-w-7xl w-full">
-        <h1 className="text-2xl text-lila-100">
-          {format(new Date(tournament.date + " " + tournament.time), "PPPp", {
-            locale: de,
-          })}
-        </h1>
-        <p className="text-lila-300">
-          <span>{tournament.location}</span>
-        </p>
+        <h2 className="inline-flex items-center gap-3 text-2xl">
+          <CalendarIcon width={24} height={24} className="text-lila-400" />
+          <span className="text-lila-100">{date}</span>
+        </h2>
+        <h2 className="inline-flex items-center gap-3 text-2xl">
+          <ClockIcon width={24} height={24} className="text-lila-400" />
+          <span className="text-lila-100">{time}</span>
+        </h2>
+        <h2 className="inline-flex items-center gap-3 text-2xl">
+          <MapPinIcon width={24} height={24} className="text-lila-400" />
+          <span className="text-lila-100">{tournament.location}</span>
+        </h2>
       </section>
       <hr className="border-lila-800 w-full" />
       <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="flex text-lila-400 uppercase tracking-wider">
-          Teilnehmer*innen ({profileTournaments.length}/{numberOfBoards})
+          Teilnehmer*innen ({participants.length}/{numberOfBoards})
         </h2>
-        {profileTournaments.map((profileTournament, index) => {
+        {participants.map((participant, index) => {
           return (
             <div key={index} className="text-lila-100 flex items-center gap-4">
-              {profileTournament.profiles.name}
-              {profileTournament.has_board && (
+              {participant.profiles.name}
+              {participant.has_board && (
                 <Badge>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
