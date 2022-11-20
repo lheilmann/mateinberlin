@@ -132,7 +132,7 @@ function ManageParticipation(props: ManageParticipationProps) {
           }
         />
         <button
-          className="group flex items-center justify-center gap-2 w-full bg-lila-800 hover:bg-lila-700 text-lila-200 text-lg h-16 rounded font-medium hover:text-lila-100 transition mt-2 border border-lila-600"
+          className="group flex items-center justify-center gap-2 w-full bg-lila-800 hover:bg-lila-900 text-lila-200 text-lg h-16 rounded font-medium hover:text-lila-100 transition mt-2 border border-lila-600"
           onClick={refuse}
           disabled={isLoading}
         >
@@ -149,7 +149,7 @@ function ManageParticipation(props: ManageParticipationProps) {
       <div className="flex flex-col gap-2">
         <p className="text-lila-400">Du hast zugesagt. Bis bald!</p>
         <button
-          className="group flex items-center justify-center gap-2 w-full bg-lila-800 hover:bg-lila-700 text-lila-200 text-lg h-16 rounded font-medium hover:text-lila-100 transition mt-2 border border-lila-600"
+          className="group flex items-center justify-center gap-2 w-full bg-lila-800 hover:bg-lila-900 text-lila-200 text-lg h-16 rounded font-medium hover:text-lila-100 transition mt-2 border border-lila-600"
           onClick={refuse}
           disabled={isLoading}
         >
