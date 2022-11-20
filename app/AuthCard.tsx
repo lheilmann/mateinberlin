@@ -105,14 +105,13 @@ function SignInForm() {
       validate={validate}
       validateOnChange={false}
       validateOnMount={false}
-      validateOnBlur={false}
     >
       {(form) => (
         <Form className="flex max-w-sm flex-col gap-5">
           <fieldset
             className={clsx(
               "flex flex-col gap-1",
-              form.errors.email && "-mb-2"
+              form.touched.email && form.errors.email && "-mb-2"
             )}
           >
             <Field
@@ -121,7 +120,7 @@ function SignInForm() {
               placeholder="E-Mail-Adresse"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
-            {form.errors.email && (
+            {form.touched.email && form.errors.email && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-400">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.email}</span>
@@ -131,7 +130,7 @@ function SignInForm() {
           <fieldset
             className={clsx(
               "flex flex-col gap-1",
-              form.errors.password && "-mb-2"
+              form.touched.password && form.errors.password && "-mb-2"
             )}
           >
             <Field
@@ -140,7 +139,7 @@ function SignInForm() {
               placeholder="Passwort"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
-            {form.errors.password && (
+            {form.touched.password && form.errors.password && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-400">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.password}</span>
@@ -221,12 +220,14 @@ function SignUpForm() {
       validate={validate}
       validateOnChange={false}
       validateOnMount={false}
-      validateOnBlur={false}
     >
       {(form) => (
         <Form className="flex max-w-sm flex-col gap-5">
           <fieldset
-            className={clsx("flex flex-col gap-1", form.errors.name && "-mb-2")}
+            className={clsx(
+              "flex flex-col gap-1",
+              form.touched.name && form.errors.name && "-mb-2"
+            )}
           >
             <Field
               name="name"
@@ -234,7 +235,7 @@ function SignUpForm() {
               placeholder="Benutzername (mind. 6 Zeichen)"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
-            {form.errors.name && (
+            {form.touched.name && form.errors.name && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-400">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.name}</span>
@@ -244,7 +245,7 @@ function SignUpForm() {
           <fieldset
             className={clsx(
               "flex flex-col gap-1",
-              form.errors.email && "-mb-2"
+              form.touched.email && form.errors.email && "-mb-2"
             )}
           >
             <Field
@@ -253,7 +254,7 @@ function SignUpForm() {
               placeholder="E-Mail"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
-            {form.errors.email && (
+            {form.touched.email && form.errors.email && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-400">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.email}</span>
@@ -263,7 +264,7 @@ function SignUpForm() {
           <fieldset
             className={clsx(
               "flex flex-col gap-1",
-              form.errors.password && "-mb-2"
+              form.touched.password && form.errors.password && "-mb-2"
             )}
           >
             <Field
@@ -272,7 +273,7 @@ function SignUpForm() {
               placeholder="Passwort (mind. 6 Zeichen)"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
-            {form.errors.password && (
+            {form.touched.password && form.errors.password && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-400">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.password}</span>
