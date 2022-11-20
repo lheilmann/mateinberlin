@@ -10,32 +10,32 @@ export default function RankingCard() {
 
   return (
     <>
-      <div className="relative flex flex-col p-4 rounded-lg border border-primary-700 bg-primary-800">
-        <div className="flex gap-4 items-center">
-          <span className="flex text-primary-400 uppercase tracking-wider">
+      <div className="relative flex flex-col rounded-lg border border-primary-700 bg-primary-800 p-4">
+        <div className="flex items-center gap-4">
+          <span className="flex uppercase tracking-wider text-primary-400">
             Ranking
           </span>
           <Badge>coming soon</Badge>
         </div>
-        <div className="flex flex-col py-4 gap-2 text-primary-300">
-          <div className="flex flex-row w-full items-center justify-between">
+        <div className="flex flex-col gap-2 py-4 text-primary-300">
+          <div className="flex w-full flex-row items-center justify-between">
             <span>skdjhfsd</span>
             <span className="font-mono tracking-wider">7040</span>
           </div>
-          <div className="flex flex-row w-full items-center justify-between">
+          <div className="flex w-full flex-row items-center justify-between">
             <span>sdkfsdfsdf</span>
             <span className="font-mono tracking-wider">1508</span>
           </div>
-          <div className="flex flex-row w-full items-center justify-between">
+          <div className="flex w-full flex-row items-center justify-between">
             <span>skd_jh1</span>
             <span className="font-mono tracking-wider">784</span>
           </div>
-          <div className="flex flex-row w-full items-center justify-between">
+          <div className="flex w-full flex-row items-center justify-between">
             <span>TTEfvhdv88</span>
             <span className="font-mono tracking-wider">500</span>
           </div>
         </div>
-        <div className="absolute inset-x-2 top-11 bottom-2 backdrop-blur-sm z-90"></div>
+        <div className="z-90 absolute inset-x-2 top-11 bottom-2 backdrop-blur-sm"></div>
       </div>
     </>
   );

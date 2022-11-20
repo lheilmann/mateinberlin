@@ -16,9 +16,6 @@ module.exports = {
           900: "hsl(var(--tw-color-ocean-900))",
         },
       },
-      boxShadow: ({ theme }) => ({
-        backdrop: `0 0 0 2px ${theme.colors.violet}`,
-      }),
       animation: {
         shimmer: "shimmer 3s infinite 1s",
         "fade-in": "fade-in 150ms ease-out",
