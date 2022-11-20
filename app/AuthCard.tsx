@@ -7,6 +7,10 @@ import {
 } from "@supabase/auth-helpers-react";
 import * as Tabs from "@radix-ui/react-tabs";
 import { useRouter } from "next/navigation";
+import {
+  ArrowLeftOnRectangleIcon,
+  UserPlusIcon,
+} from "@heroicons/react/24/outline";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -21,22 +25,24 @@ export default function AuthCard() {
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
           value="sign-in"
         >
-          Anmelden
+          <ArrowLeftOnRectangleIcon className="h-5 w-5" />
+          <span>Anmelden</span>
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
+          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-lila-700 data-[state=active]:border-lila-100 text-lila-400 data-[state=active]:text-lila-100"
           value="register"
         >
-          Registrieren
+          <UserPlusIcon className="h-5 w-5" />
+          <span>Registrieren</span>
         </Tabs.Trigger>
       </Tabs.List>
       <Tabs.Content className="p-4" value="sign-in">
         <div className="flex flex-col gap-4">
           <p className="text-lila-400">
-            Du hast schon einen Account? Dann melde dich hier an.
+            Du hast schon ein Profil? Dann melde dich hier an.
           </p>
           <SignInForm />
         </div>
@@ -91,26 +97,34 @@ function SignInForm() {
       onSubmit={onSubmit}
       validate={validate}
     >
-      <Form className="flex flex-col gap-6 max-w-sm">
-        <Field
-          name="email"
-          type="email"
-          placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
-        />
-        <Field
-          name="password"
-          type="password"
-          placeholder="Passwort"
-          className="appearance-none p-2 rounded text-lila-900 placeholder:text-lila-700"
-        />
-        <button
-          type="submit"
-          className="border border-lila-400 px-3 py-2 rounded hover:border-lila-200 transition text-lila-100"
-        >
-          Anmelden
-        </button>
-      </Form>
+      {(form) => (
+        <Form className="flex flex-col gap-6 max-w-sm">
+          <fieldset>
+            <Field
+              name="email"
+              type="email"
+              placeholder="E-Mail-Adresse"
+              className="appearance-none p-2 rounded bg-lila-600 border border-lila-500 text-lila-100 placeholder:text-lila-300 w-full"
+            />
+          </fieldset>
+          <fieldset>
+            <Field
+              name="password"
+              type="password"
+              placeholder="Passwort"
+              className="appearance-none p-2 rounded bg-lila-600 border border-lila-500 text-lila-100 placeholder:text-lila-300 w-full"
+            />
+          </fieldset>
+          <button
+            type="submit"
+            disabled={form.isSubmitting}
+            className="group flex items-center justify-center gap-3 w-full bg-lila-700 text-lila-100 h-12 rounded font-medium hover:text-lila-200 hover:bg-lila-800 transition border border-lila-600"
+          >
+            <span>Anmelden</span>
+            {/*<RocketLaunchIcon className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />*/}
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 }

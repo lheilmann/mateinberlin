@@ -1,20 +1,20 @@
 import "./global.css";
 import React from "react";
 
-import { Montserrat } from "@next/font/google";
+import { Space_Grotesk } from "@next/font/google";
 import clsx from "clsx";
 import Provider from "./Provider";
 import Header from "./Header";
 import Footer from "./Footer";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const font = Space_Grotesk({ subsets: ["latin"] });
 
 type Props = {
   children: React.ReactNode;
 };
 export default async function RootLayout(props: Props) {
   return (
-    <html lang="de" className={clsx("p-0 m-0", montserrat.className)}>
+    <html lang="de" className={clsx("p-0 m-0", font.className)}>
       <head>
         <title>Mate In Berlin</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />

@@ -16,8 +16,8 @@ export default async function Page(props: Props) {
 
   const tournament = tournaments[0];
 
-  const { data: participants } = await supabase
-    .from("participants")
+  const { data: profileTournaments } = await supabase
+    .from("profile_tournament")
     .select(
       `
     *,
@@ -28,7 +28,7 @@ export default async function Page(props: Props) {
     )
     .eq("tournament_id", props.params.tournamentId);
 
-  const numberOfBoards = participants.filter(
+  const numberOfBoards = profileTournaments.filter(
     (participant) => participant.has_board
   ).length;
 
@@ -47,13 +47,13 @@ export default async function Page(props: Props) {
       <hr className="border-lila-800 w-full" />
       <section className="flex flex-col gap-2 max-w-7xl w-full">
         <h2 className="flex text-lila-400 uppercase tracking-wider">
-          Teilnehmer*innen ({participants.length}/{numberOfBoards})
+          Teilnehmer*innen ({profileTournaments.length}/{numberOfBoards})
         </h2>
-        {participants.map((participant, index) => {
+        {profileTournaments.map((profileTournament, index) => {
           return (
             <div key={index} className="text-lila-100 flex items-center gap-4">
-              {participant.profiles.name}
-              {participant.has_board && (
+              {profileTournament.profiles.name}
+              {profileTournament.has_board && (
                 <Badge>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

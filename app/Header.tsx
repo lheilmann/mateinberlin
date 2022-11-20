@@ -76,7 +76,7 @@ function Header() {
                             className="flex appearance-none flex flex-row items-center hover:bg-lila-700 text-lila-200 hover:text-lila-100 transition px-4 py-2 cursor-pointer"
                             onClick={signOut}
                           >
-                            Ausloggen
+                            Abmelden
                           </DropdownMenu.Item>
                         </DropdownMenu.Content>
                       </DropdownMenu.Portal>
@@ -111,7 +111,7 @@ function Header() {
                   className="w-full inline-flex justify-start text-lila-300 hover:bg-lila-800 hover:text-lila-100 px-3 py-2 rounded text-base font-medium tracking-wide"
                   aria-current="page"
                 >
-                  Ausloggen
+                  Abmelden
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>
