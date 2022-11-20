@@ -2,7 +2,6 @@ import { format } from "date-fns";
 import { de } from "date-fns/locale";
 import supabase from "../../../supabase";
 import Badge from "../../../components/Badge";
-import { PlusIcon } from "@radix-ui/react-icons";
 
 export const revalidate = 0;
 
@@ -30,7 +29,7 @@ export default async function Page(props: Props) {
     .eq("tournament_id", props.params.tournamentId);
 
   const numberOfBoards = participants.filter(
-    (participant) => participant.board
+    (participant) => participant.has_board
   ).length;
 
   return (
@@ -54,7 +53,7 @@ export default async function Page(props: Props) {
           return (
             <div key={index} className="text-lila-100 flex items-center gap-4">
               {participant.profiles.name}
-              {participant.board && (
+              {participant.has_board && (
                 <Badge>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

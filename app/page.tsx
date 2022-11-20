@@ -10,8 +10,21 @@ import HeroSection from "./HeroSection";
 export const revalidate = 0;
 
 export default async function Page() {
-  const { data: tournaments } = await supabase.from("tournaments").select();
-  const { data: profiles } = await supabase.from("profiles").select();
+  const { data: tournaments, error: errorTournaments } = await supabase
+    .from("tournaments")
+    .select();
+  if (errorTournaments) {
+    console.error(errorTournaments);
+    return null;
+  }
+
+  const { data: profiles, error: errorProfiles } = await supabase
+    .from("profiles")
+    .select();
+  if (errorProfiles) {
+    console.error(errorProfiles);
+    return null;
+  }
 
   const nextTournaments = _.orderBy(
     tournaments.filter(
