@@ -1,11 +1,11 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { Cross2Icon, PlusIcon } from "@radix-ui/react-icons";
 import { Field, Form, Formik } from "formik";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 export default function CreateTournamentDialog() {
   const [open, setOpen] = useState(false);
@@ -30,19 +30,19 @@ export default function CreateTournamentDialog() {
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <div className="flex items-center justify-center gap-2 rounded-lg border border-primary-700 bg-transparent p-6 w-full cursor-pointer hover:border-primary-300 border-dashed text-primary-300 hover:text-primary-100 transition tracking-wide">
+        <div className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-primary-700 bg-transparent p-6 tracking-wide text-primary-300 transition hover:border-primary-300 hover:text-primary-100">
           <PlusIcon strokeWidth="2px" width={20} height={20} />
           <span>Turnier erstellen</span>
         </div>
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-primary-900/70 fixed inset-0" />
-        <Dialog.Content className="flex flex-col gap-4 bg-white rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[300px]">
-          <Dialog.Title className="text-primary-900 text-xl font-medium">
+        <Dialog.Overlay className="fixed inset-0 bg-primary-900/70" />
+        <Dialog.Content className="fixed top-2/4 left-2/4 flex min-w-[300px] -translate-x-2/4 -translate-y-2/4 flex-col gap-4 rounded-lg bg-white p-4 shadow-2xl">
+          <Dialog.Title className="text-xl font-medium text-primary-900">
             Neues Turnier erstellen
           </Dialog.Title>
           <Formik initialValues={initialValues} onSubmit={onSubmit}>
-            <Form className="flex flex-col gap-6 max-w-sm">
+            <Form className="flex max-w-sm flex-col gap-6">
               <fieldset className="flex flex-col gap-1">
                 <label className="text-sm text-primary-700" htmlFor="date">
                   Datum
@@ -50,7 +50,7 @@ export default function CreateTournamentDialog() {
                 <Field
                   name="date"
                   type="date"
-                  className="p-2 rounded text-primary-900 border border-primary-200 hover:border-primary-400"
+                  className="rounded border border-primary-200 p-2 text-primary-900 hover:border-primary-400"
                 />
               </fieldset>
               <fieldset className="flex flex-col gap-1">
@@ -60,7 +60,7 @@ export default function CreateTournamentDialog() {
                 <Field
                   name="time"
                   type="time"
-                  className="p-2 rounded text-primary-900 border border-primary-200 hover:border-primary-400"
+                  className="rounded border border-primary-200 p-2 text-primary-900 hover:border-primary-400"
                 />
               </fieldset>
               <fieldset className="flex flex-col gap-1">
@@ -70,14 +70,14 @@ export default function CreateTournamentDialog() {
                 <Field
                   name="location"
                   type="text"
-                  className="p-2 rounded text-primary-900 border border-primary-200 hover:border-primary-400"
+                  className="rounded border border-primary-200 p-2 text-primary-900 hover:border-primary-400"
                 />
               </fieldset>
               <div className="flex flex-row justify-end">
                 {/*<Dialog.Close asChild>*/}
                 <button
                   type="submit"
-                  className="text-primary-900 border border-primary-400 px-3 py-2 rounded hover:border-primary-200 transition w-max"
+                  className="w-max rounded border border-primary-400 px-3 py-2 text-primary-900 transition hover:border-primary-200"
                 >
                   Erstellen
                 </button>
@@ -87,10 +87,10 @@ export default function CreateTournamentDialog() {
           </Formik>
           <Dialog.Close asChild>
             <button
-              className="text-primary-900 absolute top-2.5 right-2.5 rounded-full h-5 w-5 inline-flex items-center justify-center bg-primary-200"
+              className="absolute top-2.5 right-2.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-200 text-primary-900"
               aria-label="Close"
             >
-              <Cross2Icon />
+              <XMarkIcon className="h-4 w-4" />
             </button>
           </Dialog.Close>
         </Dialog.Content>

@@ -19,8 +19,8 @@ type Props = {
 };
 export default function NextTournamentCard(props: Props) {
   return (
-    <div className="flex flex-col gap-2 p-4 rounded-lg border border-primary-700 bg-primary-800">
-      <h3 className="text-primary-400 uppercase tracking-wider">
+    <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
+      <h3 className="uppercase tracking-wider text-primary-400">
         Nächstes Turnier
       </h3>
       {props.nextTournament ? (
@@ -114,8 +114,8 @@ function ManageParticipation(props: ManageParticipationProps) {
   if (isLoading) {
     return (
       <div className="flex flex-col gap-2">
-        <Skeleton backgroundTone={700} className="rounded h-16" />
-        <Skeleton backgroundTone={700} className="rounded h-16" />
+        <Skeleton backgroundTone={700} className="h-16 rounded" />
+        <Skeleton backgroundTone={700} className="h-16 rounded" />
       </div>
     );
   }
@@ -129,19 +129,19 @@ function ManageParticipation(props: ManageParticipationProps) {
           profile={props.profile}
           setParticipates={setParticipates}
           trigger={
-            <button className="group flex items-center justify-center gap-3 w-full bg-primary-700 text-primary-100 text-lg h-16 rounded font-medium hover:text-primary-200 hover:bg-primary-800 transition mt-2 border border-primary-600">
+            <button className="group mt-2 flex h-16 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200">
               <span>Ich bin dabei</span>
-              <RocketLaunchIcon className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </button>
           }
         />
         <button
-          className="group flex items-center justify-center gap-2 w-full bg-primary-800 hover:bg-primary-900 text-primary-200 text-lg h-16 rounded font-medium hover:text-primary-100 transition mt-2 border border-primary-600"
+          className="group mt-2 flex h-16 w-full items-center justify-center gap-2 rounded border border-primary-600 bg-primary-800 text-lg font-medium text-primary-200 transition hover:bg-primary-900 hover:text-primary-100"
           onClick={refuse}
           disabled={isLoading}
         >
           <span>Diesmal nicht</span>
-          <XMarkIcon className="h-6 w-6 group-hover:scale-125 transition-transform" />
+          <XMarkIcon className="h-6 w-6 transition-transform group-hover:scale-125" />
         </button>
       </div>
     );
@@ -153,12 +153,12 @@ function ManageParticipation(props: ManageParticipationProps) {
       <div className="flex flex-col gap-2">
         <p className="text-primary-400">Du hast zugesagt. Bis bald!</p>
         <button
-          className="group flex items-center justify-center gap-2 w-full bg-primary-800 hover:bg-primary-900 text-primary-200 text-lg h-16 rounded font-medium hover:text-primary-100 transition mt-2 border border-primary-600"
+          className="group mt-2 flex h-16 w-full items-center justify-center gap-2 rounded border border-primary-600 bg-primary-800 text-lg font-medium text-primary-200 transition hover:bg-primary-900 hover:text-primary-100"
           onClick={refuse}
           disabled={isLoading}
         >
           <span>Ich kann doch nicht</span>
-          <XMarkIcon className="h-6 w-6 group-hover:scale-125 transition-transform" />
+          <XMarkIcon className="h-6 w-6 transition-transform group-hover:scale-125" />
         </button>
       </div>
     );
@@ -176,9 +176,9 @@ function ManageParticipation(props: ManageParticipationProps) {
         profile={props.profile}
         setParticipates={setParticipates}
         trigger={
-          <button className="group flex items-center justify-center gap-3 w-full bg-primary-700 text-primary-100 text-lg h-16 rounded font-medium hover:text-primary-200 hover:bg-primary-800 transition mt-2 border border-primary-600">
+          <button className="group mt-2 flex h-16 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200">
             <span>Ich bin doch dabei</span>
-            <RocketLaunchIcon className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
           </button>
         }
       />
@@ -210,20 +210,20 @@ function ParticipateDialog(props: ParticipateDialogProps) {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>{props.trigger}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="bg-primary-900/95 fixed inset-0 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out" />
-        <Dialog.Content className="flex flex-col gap-4 bg-primary-800 rounded-lg shadow-2xl fixed top-2/4 left-2/4 -translate-x-2/4 -translate-y-2/4 p-4 min-w-[360px] md:min-w-[400px] data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out">
-          <Dialog.Title className="text-primary-100 text-lg md:text-xl font-medium">
+        <Dialog.Overlay className="fixed inset-0 bg-primary-900/95 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out" />
+        <Dialog.Content className="fixed top-2/4 left-2/4 flex min-w-[360px] -translate-x-2/4 -translate-y-2/4 flex-col gap-4 rounded-lg bg-primary-800 p-4 shadow-2xl data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out md:min-w-[400px]">
+          <Dialog.Title className="text-lg font-medium text-primary-100 md:text-xl">
             Bringst du ein Schachbrett mit?
           </Dialog.Title>
           <div className="flex">
             <button
-              className="inline-flex flex-1 justify-center border border-primary-600 p-2 font-medium rounded-l-md bg-primary-700 hover:bg-primary-800 hover:text-primary-200 transition text-primary-100"
+              className="inline-flex flex-1 justify-center rounded-l-md border border-primary-600 bg-primary-700 p-2 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
               onClick={() => participate({ hasBoard: true })}
             >
               Ja
             </button>
             <button
-              className="inline-flex flex-1 justify-center border border-primary-600 p-2 font-medium rounded-r-md bg-primary-700 border-l-0 hover:bg-primary-800 hover:text-primary-200 transition text-primary-100"
+              className="inline-flex flex-1 justify-center rounded-r-md border border-l-0 border-primary-600 bg-primary-700 p-2 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
               onClick={() => participate({ hasBoard: false })}
             >
               Nein
@@ -231,10 +231,10 @@ function ParticipateDialog(props: ParticipateDialogProps) {
           </div>
           <Dialog.Close asChild>
             <button
-              className="text-primary-100 absolute top-2.5 right-2.5 rounded-full h-5 w-5 inline-flex items-center justify-center bg-primary-700"
+              className="hover:primray-200 absolute top-2.5 right-2.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-700 text-primary-100 hover:bg-primary-600"
               aria-label="Close"
             >
-              <XMarkIcon />
+              <XMarkIcon className="h-4 w-4" />
             </button>
           </Dialog.Close>
         </Dialog.Content>
