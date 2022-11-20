@@ -10,9 +10,11 @@ import { useRouter } from "next/navigation";
 import {
   ArrowLeftOnRectangleIcon,
   ExclamationTriangleIcon,
+  InboxArrowDownIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
+import { useState } from "react";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -68,12 +70,19 @@ type SignInFormValues = {
 
 function SignInForm() {
   const supabaseClient = useSupabaseClient();
+  const [error, setError] = useState(null);
 
   const onSubmit = async (values: SignInFormValues) => {
-    await supabaseClient.auth.signInWithPassword({
-      email: values.email,
-      password: values.password,
-    });
+    const { error: signInError } = await supabaseClient.auth.signInWithPassword(
+      {
+        email: values.email,
+        password: values.password,
+      }
+    );
+    if (signInError) {
+      setError(signInError);
+      console.error(signInError);
+    }
   };
 
   const initialValues: SignInFormValues = {
@@ -121,7 +130,7 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.email && form.errors.email && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.email}</span>
               </span>
@@ -140,7 +149,7 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.password && form.errors.password && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.password}</span>
               </span>
@@ -166,19 +175,30 @@ type SignUpFormValues = {
 };
 
 function SignUpForm() {
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [error, setError] = useState(null);
   const supabaseClient = useSupabaseClient();
-  const router = useRouter();
 
   const onSubmit = async (values: SignUpFormValues) => {
-    const { data } = await supabaseClient.auth.signUp({
+    const { data, error: signUpError } = await supabaseClient.auth.signUp({
       email: values.email,
       password: values.password,
     });
-    await supabaseClient
+    if (signUpError) {
+      setError(signUpError);
+      console.error(signUpError);
+      return;
+    }
+    const { error: updateProfileError } = await supabaseClient
       .from("profiles")
       .update({ name: values.name })
       .eq("id", data.user.id);
-    router.refresh();
+    if (updateProfileError) {
+      setError(updateProfileError);
+      console.error(updateProfileError);
+      return;
+    }
+    setIsRegistered(true);
   };
 
   const initialValues: SignUpFormValues = {
@@ -236,7 +256,7 @@ function SignUpForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.name && form.errors.name && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.name}</span>
               </span>
@@ -255,7 +275,7 @@ function SignUpForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.email && form.errors.email && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.email}</span>
               </span>
@@ -274,7 +294,7 @@ function SignUpForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.password && form.errors.password && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
                 <ExclamationTriangleIcon className="h-4 w-4" />
                 <span>{form.errors.password}</span>
               </span>
@@ -287,6 +307,17 @@ function SignUpForm() {
           >
             <span>Registrieren</span>
           </button>
+          {isRegistered && (
+            <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
+              <span>
+                <InboxArrowDownIcon className="mt-0.5 h-5 w-5" />
+              </span>
+              <span className="text-sm">
+                Wir haben dir einen Link per E-Mail geschickt, mit dem du deine
+                Registrierung bestätigen kannst.
+              </span>
+            </div>
+          )}
         </Form>
       )}
     </Formik>
