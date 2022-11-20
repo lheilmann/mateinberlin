@@ -18,16 +18,15 @@ type Props = {
   nextTournament: any;
 };
 export default function NextTournamentCard(props: Props) {
+  if (props.nextTournament == null) {
+    return null;
+  }
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
       <h3 className="uppercase tracking-wider text-primary-400">
         Nächstes Turnier
       </h3>
-      {props.nextTournament ? (
-        <NextTournament nextTournament={props.nextTournament} />
-      ) : (
-        <h2 className="text-2xl italic text-primary-100">tba</h2>
-      )}
+      <NextTournament nextTournament={props.nextTournament} />
     </div>
   );
 }

@@ -9,8 +9,10 @@ import * as Tabs from "@radix-ui/react-tabs";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeftOnRectangleIcon,
+  ExclamationTriangleIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
+import clsx from "clsx";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -25,14 +27,14 @@ export default function AuthCard() {
     >
       <Tabs.List className="flex shrink-0" aria-label="Verwalte dein Profil">
         <Tabs.Trigger
-          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-primary-700 data-[state=active]:border-primary-100 text-primary-400 data-[state=active]:text-primary-100"
+          className="flex flex-1 items-center justify-center gap-2 border-b border-primary-700 py-3 text-primary-400 transition hover:text-primary-300 data-[state=active]:border-primary-100 data-[state=active]:text-primary-100"
           value="sign-in"
         >
           <ArrowLeftOnRectangleIcon className="h-5 w-5" />
           <span>Anmelden</span>
         </Tabs.Trigger>
         <Tabs.Trigger
-          className="transition flex flex-1 gap-2 items-center justify-center py-3 border-b border-primary-700 data-[state=active]:border-primary-100 text-primary-400 data-[state=active]:text-primary-100"
+          className="flex flex-1 items-center justify-center gap-2 border-b border-primary-700 py-3 text-primary-400 transition hover:text-primary-300 data-[state=active]:border-primary-100 data-[state=active]:text-primary-100"
           value="register"
         >
           <UserPlusIcon className="h-5 w-5" />
@@ -59,22 +61,27 @@ export default function AuthCard() {
   );
 }
 
+type SignInFormValues = {
+  email: string;
+  password: string;
+};
+
 function SignInForm() {
   const supabaseClient = useSupabaseClient();
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: SignInFormValues) => {
     await supabaseClient.auth.signInWithPassword({
       email: values.email,
       password: values.password,
     });
   };
 
-  const initialValues = {
+  const initialValues: SignInFormValues = {
     email: "",
     password: "",
   };
 
-  const validate = (values) => {
+  const validate = (values: SignInFormValues) => {
     let errors: any = {};
     if (!values.email) {
       errors.email = "Deine E-Mail-Addresse fehlt";
@@ -96,32 +103,56 @@ function SignInForm() {
       initialValues={initialValues}
       onSubmit={onSubmit}
       validate={validate}
+      validateOnChange={false}
+      validateOnMount={false}
+      validateOnBlur={false}
     >
       {(form) => (
-        <Form className="flex flex-col gap-6 max-w-sm">
-          <fieldset>
+        <Form className="flex max-w-sm flex-col gap-5">
+          <fieldset
+            className={clsx(
+              "flex flex-col gap-1",
+              form.errors.email && "-mb-2"
+            )}
+          >
             <Field
               name="email"
               type="email"
               placeholder="E-Mail-Adresse"
-              className="appearance-none p-2 rounded bg-primary-600 border border-primary-500 text-primary-100 placeholder:text-primary-300 w-full"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
+            {form.errors.email && (
+              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <span>{form.errors.email}</span>
+              </span>
+            )}
           </fieldset>
-          <fieldset>
+          <fieldset
+            className={clsx(
+              "flex flex-col gap-1",
+              form.errors.password && "-mb-2"
+            )}
+          >
             <Field
               name="password"
               type="password"
               placeholder="Passwort"
-              className="appearance-none p-2 rounded bg-primary-600 border border-primary-500 text-primary-100 placeholder:text-primary-300 w-full"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
+            {form.errors.password && (
+              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <span>{form.errors.password}</span>
+              </span>
+            )}
           </fieldset>
           <button
             type="submit"
             disabled={form.isSubmitting}
-            className="group flex items-center justify-center gap-3 w-full bg-primary-700 text-primary-100 h-12 rounded font-medium hover:text-primary-200 hover:bg-primary-800 transition border border-primary-600"
+            className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
           >
             <span>Anmelden</span>
-            {/*<RocketLaunchIcon className="h-6 w-6 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />*/}
           </button>
         </Form>
       )}
@@ -129,11 +160,17 @@ function SignInForm() {
   );
 }
 
+type SignUpFormValues = {
+  name: string;
+  email: string;
+  password: string;
+};
+
 function SignUpForm() {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
 
-  const onSubmit = async (values) => {
+  const onSubmit = async (values: SignUpFormValues) => {
     const { data } = await supabaseClient.auth.signUp({
       email: values.email,
       password: values.password,
@@ -145,13 +182,13 @@ function SignUpForm() {
     router.refresh();
   };
 
-  const initialValues = {
+  const initialValues: SignUpFormValues = {
     name: "",
     email: "",
     password: "",
   };
 
-  const validate = (values) => {
+  const validate = (values: SignUpFormValues) => {
     let errors: any = {};
     if (!values.name) {
       errors.name = "Dein Name fehlt";
@@ -182,33 +219,75 @@ function SignUpForm() {
       initialValues={initialValues}
       onSubmit={onSubmit}
       validate={validate}
+      validateOnChange={false}
+      validateOnMount={false}
+      validateOnBlur={false}
     >
-      <Form className="flex flex-col gap-6 max-w-sm">
-        <Field
-          name="name"
-          type="text"
-          placeholder="Benutzername (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
-        />
-        <Field
-          name="email"
-          type="email"
-          placeholder="E-Mail"
-          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
-        />
-        <Field
-          name="password"
-          type="password"
-          placeholder="Passwort (mind. 6 Zeichen)"
-          className="appearance-none p-2 rounded text-primary-900 placeholder:text-primary-700"
-        />
-        <button
-          type="submit"
-          className="border border-primary-400 px-3 py-2 rounded hover:border-primary-200 transition text-primary-100"
-        >
-          Registrieren
-        </button>
-      </Form>
+      {(form) => (
+        <Form className="flex max-w-sm flex-col gap-5">
+          <fieldset
+            className={clsx("flex flex-col gap-1", form.errors.name && "-mb-2")}
+          >
+            <Field
+              name="name"
+              type="text"
+              placeholder="Benutzername (mind. 6 Zeichen)"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+            />
+            {form.errors.name && (
+              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <span>{form.errors.name}</span>
+              </span>
+            )}
+          </fieldset>
+          <fieldset
+            className={clsx(
+              "flex flex-col gap-1",
+              form.errors.email && "-mb-2"
+            )}
+          >
+            <Field
+              name="email"
+              type="email"
+              placeholder="E-Mail"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+            />
+            {form.errors.email && (
+              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <span>{form.errors.email}</span>
+              </span>
+            )}
+          </fieldset>
+          <fieldset
+            className={clsx(
+              "flex flex-col gap-1",
+              form.errors.password && "-mb-2"
+            )}
+          >
+            <Field
+              name="password"
+              type="password"
+              placeholder="Passwort (mind. 6 Zeichen)"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+            />
+            {form.errors.password && (
+              <span className="inline-flex items-center gap-1 text-sm text-primary-400">
+                <ExclamationTriangleIcon className="h-4 w-4" />
+                <span>{form.errors.password}</span>
+              </span>
+            )}
+          </fieldset>
+          <button
+            type="submit"
+            disabled={form.isSubmitting}
+            className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
+          >
+            <span>Registrieren</span>
+          </button>
+        </Form>
+      )}
     </Formik>
   );
 }
