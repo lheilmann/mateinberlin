@@ -135,7 +135,7 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.email && form.errors.email && (
-              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
                   <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
                 </span>
@@ -156,7 +156,7 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.password && form.errors.password && (
-              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
                   <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
                 </span>
@@ -240,9 +240,9 @@ function SignUpForm() {
       errors.username = "Dein Benutzername muss mindestens 6 Zeichen lang sein";
     } else if (values.username && values.username.length > 15) {
       errors.username = "Dein Benutzername darf maximal 15 Zeichen lang sein";
-    } else if (!/^([A-Za-z_])*$/.test(values.username)) {
+    } else if (!/^([\w_])*$/.test(values.username)) {
       errors.username =
-        "Dein Benutzername darf nur Buchstaben und Unterstriche enthalten";
+        "Dein Benutzername darf nur Buchstaben, Ziffern und Unterstriche enthalten";
     }
     if (!values.email) {
       errors.email = "Deine E-Mail-Adresse fehlt";
@@ -286,23 +286,24 @@ function SignUpForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
               disabled={form.isSubmitting || isRegistered}
             />
-            {form.touched.username && form.errors.username ? (
-              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+            {form.touched.username && form.errors.username && (
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
                   <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
                 </span>
                 <span>{form.errors.username}</span>
               </div>
-            ) : (
-              <div className="block text-sm text-primary-300">
+            )}
+            {!form.errors.username && (
+              <div className="block text-sm text-primary-400">
                 <ul className="flex flex-col gap-1">
                   <li className="inline-flex items-start gap-1.5">
                     <ScissorsIcon className="mt-0.5 h-4 w-4" />
-                    Zwischen 6 und 15 Zeichen möglich
+                    Zwischen 6 und 15 Zeichen
                   </li>
                   <li className="inline-flex items-start gap-1.5">
                     <LanguageIcon className="mt-0.5 h-4 w-4" />
-                    Nur Buchstaben und Unterstriche erlaubt
+                    Nur Buchstaben, Ziffern und Unterstriche
                   </li>
                 </ul>
               </div>
@@ -322,7 +323,7 @@ function SignUpForm() {
               disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.email && form.errors.email && (
-              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
                   <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
                 </span>
@@ -344,7 +345,7 @@ function SignUpForm() {
               disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.password && form.errors.password && (
-              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
                   <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
                 </span>
