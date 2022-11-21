@@ -10,7 +10,9 @@ import {
   ArrowLeftOnRectangleIcon,
   EnvelopeOpenIcon,
   ExclamationTriangleIcon,
+  LanguageIcon,
   PaperAirplaneIcon,
+  ScissorsIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
@@ -95,13 +97,13 @@ function SignInForm() {
   const validate = (values: SignInFormValues) => {
     let errors: any = {};
     if (!values.email) {
-      errors.email = "Deine E-Mail-Addresse fehlt";
+      errors.email = "Deine E-Mail-Adresse fehlt";
     }
     if (
       values.email &&
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
     ) {
-      errors.email = "Deine E-Mail-Addresse sieht komisch aus";
+      errors.email = "Deine E-Mail-Adresse sieht komisch aus";
     }
     if (!values.password) {
       errors.password = "Dein Passwort fehlt";
@@ -116,6 +118,7 @@ function SignInForm() {
       validate={validate}
       validateOnChange={false}
       validateOnMount={false}
+      validateOnBlur={false}
     >
       {(form) => (
         <Form className="flex max-w-sm flex-col gap-5">
@@ -132,10 +135,12 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.email && form.errors.email && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
-                <ExclamationTriangleIcon className="h-4 w-4" />
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+                <span>
+                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                </span>
                 <span>{form.errors.email}</span>
-              </span>
+              </div>
             )}
           </fieldset>
           <fieldset
@@ -151,10 +156,12 @@ function SignInForm() {
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
             />
             {form.touched.password && form.errors.password && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
-                <ExclamationTriangleIcon className="h-4 w-4" />
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+                <span>
+                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                </span>
                 <span>{form.errors.password}</span>
-              </span>
+              </div>
             )}
           </fieldset>
           {error && (
@@ -188,7 +195,7 @@ function SignInForm() {
 }
 
 type SignUpFormValues = {
-  name: string;
+  username: string;
   email: string;
   password: string;
 };
@@ -206,7 +213,7 @@ function SignUpForm() {
       password: values.password,
       options: {
         data: {
-          name: values.name,
+          username: values.username,
         },
       },
     });
@@ -219,27 +226,32 @@ function SignUpForm() {
   };
 
   const initialValues: SignUpFormValues = {
-    name: "",
+    username: "",
     email: "",
     password: "",
   };
 
   const validate = (values: SignUpFormValues) => {
     let errors: any = {};
-    if (!values.name) {
-      errors.name = "Dein Name fehlt";
+    if (!values.username) {
+      errors.username = "Dein Benutzername fehlt";
     }
-    if (values.name && values.name.length < 6) {
-      errors.name = "Dein Name muss mindestens 6 Zeichen lang sein";
+    if (values.username && values.username.length < 6) {
+      errors.username = "Dein Benutzername muss mindestens 6 Zeichen lang sein";
+    } else if (values.username && values.username.length > 15) {
+      errors.username = "Dein Benutzername darf maximal 15 Zeichen lang sein";
+    } else if (!/^([A-Za-z_])*$/.test(values.username)) {
+      errors.username =
+        "Dein Benutzername darf nur Buchstaben und Unterstriche enthalten";
     }
     if (!values.email) {
-      errors.email = "Deine E-Mail-Addresse fehlt";
+      errors.email = "Deine E-Mail-Adresse fehlt";
     }
     if (
       values.email &&
       !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
     ) {
-      errors.email = "Deine E-Mail-Addresse sieht komisch aus";
+      errors.email = "Deine E-Mail-Adresse sieht komisch aus";
     }
     if (!values.password) {
       errors.password = "Dein Passwort fehlt";
@@ -257,27 +269,43 @@ function SignUpForm() {
       validate={validate}
       validateOnChange={false}
       validateOnMount={false}
+      validateOnBlur={false}
     >
       {(form) => (
         <Form className="flex max-w-sm flex-col gap-5">
           <fieldset
             className={clsx(
               "flex flex-col gap-1",
-              form.touched.name && form.errors.name && "-mb-2"
+              form.touched.username && form.errors.username && "-mb-2"
             )}
           >
             <Field
-              name="name"
+              name="username"
               type="text"
-              placeholder="Benutzername (mind. 6 Zeichen)"
+              placeholder="Benutzername"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
               disabled={form.isSubmitting || isRegistered}
             />
-            {form.touched.name && form.errors.name && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
-                <ExclamationTriangleIcon className="h-4 w-4" />
-                <span>{form.errors.name}</span>
-              </span>
+            {form.touched.username && form.errors.username ? (
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+                <span>
+                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                </span>
+                <span>{form.errors.username}</span>
+              </div>
+            ) : (
+              <div className="block text-sm text-primary-300">
+                <ul className="flex flex-col gap-1">
+                  <li className="inline-flex items-start gap-1.5">
+                    <ScissorsIcon className="mt-0.5 h-4 w-4" />
+                    Zwischen 6 und 15 Zeichen möglich
+                  </li>
+                  <li className="inline-flex items-start gap-1.5">
+                    <LanguageIcon className="mt-0.5 h-4 w-4" />
+                    Nur Buchstaben und Unterstriche erlaubt
+                  </li>
+                </ul>
+              </div>
             )}
           </fieldset>
           <fieldset
@@ -294,10 +322,12 @@ function SignUpForm() {
               disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.email && form.errors.email && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
-                <ExclamationTriangleIcon className="h-4 w-4" />
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+                <span>
+                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                </span>
                 <span>{form.errors.email}</span>
-              </span>
+              </div>
             )}
           </fieldset>
           <fieldset
@@ -309,15 +339,17 @@ function SignUpForm() {
             <Field
               name="password"
               type="password"
-              placeholder="Passwort (mind. 6 Zeichen)"
+              placeholder="Passwort"
               className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
               disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.password && form.errors.password && (
-              <span className="inline-flex items-center gap-1 text-sm text-primary-300">
-                <ExclamationTriangleIcon className="h-4 w-4" />
+              <div className="inline-flex items-start gap-1.5 text-sm text-primary-300">
+                <span>
+                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                </span>
                 <span>{form.errors.password}</span>
-              </span>
+              </div>
             )}
           </fieldset>
           {error && (
@@ -371,4 +403,8 @@ function SignUpForm() {
       )}
     </Formik>
   );
+}
+
+function AuthErrorInfo(error: AuthError) {
+  console.log(error);
 }

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 type Profile = {
   id: string;
-  name: string;
+  username: string;
 };
 type ReturnProps =
   | {

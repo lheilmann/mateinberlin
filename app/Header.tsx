@@ -43,13 +43,13 @@ function Header() {
                     {user && isAdmin(user) && (
                       <>
                         <Link
-                          className="text-primary-300 hover:bg-primary-800 hover:text-primary-100 px-3 py-2 rounded transition font-medium tracking-wide"
+                          className="rounded px-3 py-2 font-medium tracking-wide text-primary-300 transition hover:bg-primary-800 hover:text-primary-100"
                           href="/"
                         >
                           Startseite
                         </Link>
                         <Link
-                          className="text-primary-300 hover:bg-primary-800 hover:text-primary-100 px-3 py-2 rounded transition font-medium tracking-wide"
+                          className="rounded px-3 py-2 font-medium tracking-wide text-primary-300 transition hover:bg-primary-800 hover:text-primary-100"
                           href="/tournaments"
                         >
                           Turniere
@@ -61,19 +61,19 @@ function Header() {
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
                         <div className="flex">
-                          <span className="text-primary-300 hover:bg-primary-800 hover:text-primary-100 px-3 py-2 rounded transition tracking-wide font-medium cursor-pointer">
-                            {profile.name}
+                          <span className="cursor-pointer rounded px-3 py-2 font-medium tracking-wide text-primary-300 transition hover:bg-primary-800 hover:text-primary-100">
+                            {profile.username}
                           </span>
                         </div>
                       </DropdownMenu.Trigger>
                       <DropdownMenu.Portal>
                         <DropdownMenu.Content
-                          className="w-max transition rounded-md bg-primary-800 py-1"
+                          className="w-max rounded-md bg-primary-800 py-1 transition"
                           align="end"
                           sideOffset={5}
                         >
                           <DropdownMenu.Item
-                            className="flex appearance-none flex flex-row items-center hover:bg-primary-700 text-primary-200 hover:text-primary-100 transition px-4 py-2 cursor-pointer"
+                            className="flex cursor-pointer appearance-none flex-row items-center px-4 py-2 text-primary-200 transition hover:bg-primary-700 hover:text-primary-100"
                             onClick={signOut}
                           >
                             Abmelden
@@ -93,7 +93,7 @@ function Header() {
                 <Disclosure.Button
                   as={Link}
                   href="/"
-                  className="text-primary-300 hover:bg-primary-800 hover:text-primary-100 block px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="block rounded px-3 py-2 text-base font-medium tracking-wide text-primary-300 hover:bg-primary-800 hover:text-primary-100"
                   aria-current="page"
                 >
                   Startseite
@@ -101,14 +101,14 @@ function Header() {
                 <Disclosure.Button
                   as={Link}
                   href="/tournaments"
-                  className="text-primary-300 hover:bg-primary-800 hover:text-primary-100 block px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="block rounded px-3 py-2 text-base font-medium tracking-wide text-primary-300 hover:bg-primary-800 hover:text-primary-100"
                   aria-current="page"
                 >
                   Turniere
                 </Disclosure.Button>
                 <Disclosure.Button
                   onClick={signOut}
-                  className="w-full inline-flex justify-start text-primary-300 hover:bg-primary-800 hover:text-primary-100 px-3 py-2 rounded text-base font-medium tracking-wide"
+                  className="inline-flex w-full justify-start rounded px-3 py-2 text-base font-medium tracking-wide text-primary-300 hover:bg-primary-800 hover:text-primary-100"
                   aria-current="page"
                 >
                   Abmelden

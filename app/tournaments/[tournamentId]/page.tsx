@@ -27,7 +27,7 @@ export default async function Page(props: Props) {
       `
     *,
     profiles (
-      name
+      username
     )
   `
     )
@@ -73,7 +73,7 @@ export default async function Page(props: Props) {
               key={index}
               className="flex items-center gap-4 text-primary-100"
             >
-              {participant.profiles.name}
+              {participant.profiles.username}
               {participant.has_board && (
                 <Badge>
                   <svg
