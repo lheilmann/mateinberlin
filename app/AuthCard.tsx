@@ -222,7 +222,9 @@ function SignUpForm() {
       );
       console.log(response);
     }
-    fetchData();
+    if (process.env.NODE_ENV === "development") {
+      fetchData();
+    }
   }, []);
 
   const onSubmit = async (values: SignUpFormValues) => {
