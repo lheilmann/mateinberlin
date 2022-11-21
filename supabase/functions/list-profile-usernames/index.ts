@@ -10,7 +10,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0";
 console.log(`Function "list-profile-usernames" up and running!`);
 
 export const corsHeaders = {
-  "Access-Control-Allow-Origin": "*, http://localhost:3000",
+  "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey",
 };
 
