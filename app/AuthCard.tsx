@@ -16,6 +16,7 @@ import {
 import clsx from "clsx";
 import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
+import { AuthError } from "@supabase/gotrue-js";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -72,7 +73,7 @@ type SignInFormValues = {
 function SignInForm() {
   const supabaseClient = useSupabaseClient();
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<AuthError | null>(null);
 
   const onSubmit = async (values: SignInFormValues) => {
     setIsLoading(true);
@@ -156,6 +157,22 @@ function SignInForm() {
               </span>
             )}
           </fieldset>
+          {error && (
+            <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
+              <span>
+                <ExclamationTriangleIcon className="mt-0.5 h-5 w-5" />
+              </span>
+              <div className="flex flex-col gap-1 text-sm">
+                <span>Hoppla! Da ist etwas schief gelaufen.</span>
+                {error.message && (
+                  <details>
+                    <summary>Details</summary>
+                    <p>{error.message}</p>
+                  </details>
+                )}
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             disabled={form.isSubmitting}
@@ -179,7 +196,7 @@ type SignUpFormValues = {
 function SignUpForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<AuthError | null>(null);
   const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values: SignUpFormValues) => {
@@ -303,6 +320,25 @@ function SignUpForm() {
               </span>
             )}
           </fieldset>
+          {error && (
+            <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
+              <span>
+                <ExclamationTriangleIcon className="mt-0.5 h-5 w-5" />
+              </span>
+              <div className="flex flex-col gap-1 text-sm">
+                <span>
+                  Hoppla! Da ist etwas schief gelaufen. Bitte versuch es später
+                  nochmal.
+                </span>
+                {error.message && (
+                  <details>
+                    <summary>Details</summary>
+                    <p>{error.message}</p>
+                  </details>
+                )}
+              </div>
+            </div>
+          )}
           <button
             type="submit"
             disabled={form.isSubmitting || isRegistered}
