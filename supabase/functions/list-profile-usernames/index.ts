@@ -2,6 +2,7 @@
 // https://deno.land/manual/getting_started/setup_your_environment
 // This enables autocomplete, go to definition, etc.
 
+// @ts-ignore
 import { serve } from "https://deno.land/std@0.131.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0";
 
