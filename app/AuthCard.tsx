@@ -209,7 +209,7 @@ function SignUpForm() {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
-        "https://qaueqkhkelymfadanrzz.functions.supabase.co/list-profile-usernames",
+        `https://${process.env.NEXT_PUBLIC_SUPABASE_PROJECT_REF}.functions.supabase.co/list-profile-usernames`,
         {
           method: "POST",
           headers: {
