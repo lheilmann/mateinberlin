@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="mx-auto w-full max-w-7xl px-4 sm:px-10">
-      <div className="flex flex-1 flex-col items-center justify-center gap-4 py-4 sm:py-8">
+      <div className="flex flex-1 flex-col items-center justify-center gap-6 py-4 sm:py-8">
         <div className="flex space-x-6">
           <a
             href="https://www.instagram.com/mate_in_berlin/"

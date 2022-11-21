@@ -47,8 +47,8 @@ export default async function Page(props: Props) {
   });
 
   return (
-    <div className="flex flex-col gap-6 items-center w-full">
-      <section className="flex flex-col gap-2 max-w-7xl w-full">
+    <div className="flex w-full flex-col items-center gap-6">
+      <section className="flex w-full max-w-7xl flex-col gap-2">
         <h2 className="inline-flex items-center gap-3 text-2xl">
           <CalendarIcon width={24} height={24} className="text-primary-400" />
           <span className="text-primary-100">{date}</span>
@@ -62,16 +62,16 @@ export default async function Page(props: Props) {
           <span className="text-primary-100">{tournament.location}</span>
         </h2>
       </section>
-      <hr className="border-primary-800 w-full" />
-      <section className="flex flex-col gap-2 max-w-7xl w-full">
-        <h2 className="flex text-primary-400 uppercase tracking-wider">
+      <hr className="w-full border-primary-800" />
+      <section className="flex w-full max-w-7xl flex-col gap-2">
+        <h2 className="flex uppercase tracking-wider text-primary-400">
           Teilnehmer*innen ({participants.length}/{numberOfBoards})
         </h2>
         {participants.map((participant, index) => {
           return (
             <div
               key={index}
-              className="text-primary-100 flex items-center gap-4"
+              className="flex items-center gap-4 text-primary-100"
             >
               {participant.profiles.name}
               {participant.has_board && (
@@ -82,7 +82,7 @@ export default async function Page(props: Props) {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                   >
                     <path
                       strokeLinecap="round"

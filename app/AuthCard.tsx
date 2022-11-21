@@ -6,15 +6,16 @@ import {
   useSessionContext,
 } from "@supabase/auth-helpers-react";
 import * as Tabs from "@radix-ui/react-tabs";
-import { useRouter } from "next/navigation";
 import {
   ArrowLeftOnRectangleIcon,
+  EnvelopeOpenIcon,
   ExclamationTriangleIcon,
-  InboxArrowDownIcon,
+  PaperAirplaneIcon,
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import { useState } from "react";
+import LoadingIcon from "~components/LoadingIcon";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -70,19 +71,19 @@ type SignInFormValues = {
 
 function SignInForm() {
   const supabaseClient = useSupabaseClient();
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const onSubmit = async (values: SignInFormValues) => {
-    const { error: signInError } = await supabaseClient.auth.signInWithPassword(
-      {
-        email: values.email,
-        password: values.password,
-      }
-    );
-    if (signInError) {
-      setError(signInError);
-      console.error(signInError);
+    setIsLoading(true);
+    const { error } = await supabaseClient.auth.signInWithPassword({
+      email: values.email,
+      password: values.password,
+    });
+    if (error) {
+      setError(error);
     }
+    setIsLoading(false);
   };
 
   const initialValues: SignInFormValues = {
@@ -160,6 +161,7 @@ function SignInForm() {
             disabled={form.isSubmitting}
             className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
           >
+            {isLoading && <LoadingIcon className="h-5 w-5" />}
             <span>Anmelden</span>
           </button>
         </Form>
@@ -175,30 +177,28 @@ type SignUpFormValues = {
 };
 
 function SignUpForm() {
+  const [isLoading, setIsLoading] = useState(false);
   const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState(null);
   const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values: SignUpFormValues) => {
-    const { data, error: signUpError } = await supabaseClient.auth.signUp({
+    setIsLoading(true);
+    const { error } = await supabaseClient.auth.signUp({
       email: values.email,
       password: values.password,
+      options: {
+        data: {
+          name: values.name,
+        },
+      },
     });
-    if (signUpError) {
-      setError(signUpError);
-      console.error(signUpError);
-      return;
+    if (error) {
+      setError(error);
+    } else {
+      setIsRegistered(true);
     }
-    const { error: updateProfileError } = await supabaseClient
-      .from("profiles")
-      .update({ name: values.name })
-      .eq("id", data.user.id);
-    if (updateProfileError) {
-      setError(updateProfileError);
-      console.error(updateProfileError);
-      return;
-    }
-    setIsRegistered(true);
+    setIsLoading(false);
   };
 
   const initialValues: SignUpFormValues = {
@@ -253,7 +253,8 @@ function SignUpForm() {
               name="name"
               type="text"
               placeholder="Benutzername (mind. 6 Zeichen)"
-              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
+              disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.name && form.errors.name && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-300">
@@ -271,8 +272,9 @@ function SignUpForm() {
             <Field
               name="email"
               type="email"
-              placeholder="E-Mail"
-              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+              placeholder="E-Mail-Adresse"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
+              disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.email && form.errors.email && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-300">
@@ -291,7 +293,8 @@ function SignUpForm() {
               name="password"
               type="password"
               placeholder="Passwort (mind. 6 Zeichen)"
-              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 hover:border-primary-600"
+              className="w-full appearance-none rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 placeholder:text-primary-300 enabled:hover:border-primary-600 disabled:text-primary-300"
+              disabled={form.isSubmitting || isRegistered}
             />
             {form.touched.password && form.errors.password && (
               <span className="inline-flex items-center gap-1 text-sm text-primary-300">
@@ -302,15 +305,25 @@ function SignUpForm() {
           </fieldset>
           <button
             type="submit"
-            disabled={form.isSubmitting}
-            className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
+            disabled={form.isSubmitting || isRegistered}
+            className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition enabled:hover:bg-primary-800 enabled:hover:text-primary-200 disabled:bg-primary-800 disabled:text-primary-200"
           >
-            <span>Registrieren</span>
+            {isLoading && <LoadingIcon className="h-5 w-5" />}
+            {isRegistered ? (
+              <>
+                <span>
+                  <EnvelopeOpenIcon className="h-6 w-6" />
+                </span>
+                <span>Schau mal in dein Postfach</span>
+              </>
+            ) : (
+              <span>Registrieren</span>
+            )}
           </button>
           {isRegistered && (
             <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
               <span>
-                <InboxArrowDownIcon className="mt-0.5 h-5 w-5" />
+                <PaperAirplaneIcon className="mt-0.5 h-5 w-5" />
               </span>
               <span className="text-sm">
                 Wir haben dir einen Link per E-Mail geschickt, mit dem du deine

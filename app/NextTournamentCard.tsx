@@ -8,6 +8,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import {
   CalendarIcon,
   ClockIcon,
+  MapPinIcon,
   RocketLaunchIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -55,6 +56,12 @@ function NextTournament(props: Props) {
       <h2 className="inline-flex items-center gap-3 text-2xl">
         <ClockIcon width={24} height={24} className="text-primary-400" />
         <span className="text-primary-100">{time}</span>
+      </h2>
+      <h2 className="inline-flex items-center gap-3 text-2xl">
+        <MapPinIcon width={24} height={24} className="text-primary-400" />
+        <span className="text-primary-100">
+          {props.nextTournament.location}
+        </span>
       </h2>
       {profile ? (
         <>
