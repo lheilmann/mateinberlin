@@ -24,11 +24,11 @@
       }
     ],
     "paths": {
-      "~lib": [
-        "./lib"
+      "~supabase": [
+        "./supabase"
       ],
-      "~lib/*": [
-        "./lib/*"
+      "~supabase/*": [
+        "./supabase/*"
       ],
       "~components": [
         "./components"

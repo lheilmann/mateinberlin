@@ -6,7 +6,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import useProfile from "~hooks/useProfile";
-import { isAdmin } from "~lib/supabase/utils";
+import { isAdmin } from "~supabase/utils";
 
 function Header() {
   const { profile, user } = useProfile();

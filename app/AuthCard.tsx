@@ -16,7 +16,7 @@ import {
   UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import clsx from "clsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
 import { AuthError } from "@supabase/gotrue-js";
 
@@ -205,6 +205,25 @@ function SignUpForm() {
   const [isRegistered, setIsRegistered] = useState(false);
   const [error, setError] = useState<AuthError | null>(null);
   const supabaseClient = useSupabaseClient();
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch(
+        "https://zokfbenwbblgirgkjnmw.functions.supabase.co/list-profile-usernames",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
+            "Content-Type": "application/json",
+          },
+          redirect: "follow",
+          body: JSON.stringify({ name: "Functions" }),
+        }
+      );
+      console.log(response);
+    }
+    fetchData();
+  }, []);
 
   const onSubmit = async (values: SignUpFormValues) => {
     setIsLoading(true);

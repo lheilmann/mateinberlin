@@ -2,7 +2,7 @@ import _ from "lodash";
 import TournamentListItem from "./TournamentListItem";
 import CreateTournamentDialog from "./CreateTournamentDialog";
 import React from "react";
-import supabase from "~lib/supabase";
+import supabase from "~supabase";
 
 export const revalidate = 0;
 

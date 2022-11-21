@@ -5,7 +5,7 @@ import {
   ClockIcon,
   MapPinIcon,
 } from "@heroicons/react/24/outline";
-import supabase from "~lib/supabase";
+import supabase from "~supabase";
 import Badge from "~components/Badge";
 
 export const revalidate = 0;
