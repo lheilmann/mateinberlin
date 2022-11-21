@@ -60,7 +60,7 @@ function Header() {
                   {user && profile && (
                     <DropdownMenu.Root>
                       <DropdownMenu.Trigger asChild>
-                        <div className="flex">
+                        <div className="flex bg-primary-900">
                           <span className="cursor-pointer rounded px-3 py-2 font-medium tracking-wide text-primary-300 transition hover:bg-primary-800 hover:text-primary-100">
                             {profile.username}
                           </span>
