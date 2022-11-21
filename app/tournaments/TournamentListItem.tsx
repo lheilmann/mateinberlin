@@ -15,9 +15,9 @@ export default function TournamentListItem(props: Props) {
     router.push(`/tournaments/${tournamentId}`);
   };
 
-  const [hours] = props.nextTournament.time.split(":");
+  const [hours] = props.tournament.time.split(":");
   const dateTime = format(
-    setHours(new Date(props.nextTournament.date), hours),
+    setHours(new Date(props.tournament.date), hours),
     "PPPp",
     {
       locale: de,
