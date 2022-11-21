@@ -9,7 +9,7 @@ export default function CommunityCard(props: Props) {
         <span className="flex uppercase tracking-wider text-primary-400">
           Community
         </span>
-        <div className="flex flex-1 flex-col items-start justify-center gap-4 py-4">
+        <div className="flex flex-col items-start justify-center gap-6 py-4">
           <div className="flex flex-1 items-center">
             <div className="flex items-end justify-end gap-3">
               <span className="text-6xl text-primary-100">
