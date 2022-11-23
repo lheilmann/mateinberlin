@@ -3,7 +3,7 @@ import NextTournamentCard from "./NextTournamentCard";
 import CommunityCard from "./CommunityCard";
 import RankingCard from "./RankingCard";
 import _ from "lodash";
-import { isAfter, isEqual } from "date-fns";
+import { isAfter, isEqual, startOfToday } from "date-fns";
 import HeroSection from "./HeroSection";
 import supabase from "~supabase";
 
@@ -29,7 +29,7 @@ export default async function Page() {
   const nextTournaments = _.orderBy(
     tournaments.filter(
       (tournament) =>
-        isEqual(new Date(tournament.date), new Date()) ||
+        isEqual(new Date(tournament.date), startOfToday()) ||
         isAfter(new Date(tournament.date), new Date())
     ),
     "date"
