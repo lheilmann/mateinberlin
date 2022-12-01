@@ -223,7 +223,7 @@ function SignUpForm() {
       console.log(response);
     }
     if (process.env.NODE_ENV === "development") {
-      fetchData();
+      // fetchData();
     }
   }, []);
 
