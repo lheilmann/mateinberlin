@@ -61,8 +61,8 @@ export default async function Page(props: Props) {
       </section>
       <hr className="w-full border-primary-800" />
       <section className="grid w-full max-w-7xl grid-cols-1 gap-4 sm:grid-cols-4 sm:gap-6">
-        <div className="flex flex-col rounded-lg border border-primary-700 bg-primary-800 p-4">
-          <h2 className="flex gap-2 uppercase tracking-wider text-primary-400">
+        <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
+          <h2 className="flex uppercase tracking-wider text-primary-400">
             Teilnehmer*innen ({participants.length})
           </h2>
           <div className="flex flex-col gap-0.5">
