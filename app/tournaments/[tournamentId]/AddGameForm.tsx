@@ -1,7 +1,7 @@
 "use client";
 
 import { Field, Form, Formik } from "formik";
-import LoadingIcon from "~components/LoadingIcon.tsx";
+import LoadingIcon from "~components/LoadingIcon";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
