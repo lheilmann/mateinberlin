@@ -3,12 +3,12 @@ import HeroSection from "./HeroSection";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col gap-10 w-full">
+    <div className="flex w-full flex-col gap-10">
       <HeroSection />
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-        <Skeleton className="rounded-lg w-full h-56" />
-        <Skeleton className="rounded-lg w-full h-56" />
-        <Skeleton className="rounded-lg w-full h-56" />
+      <section className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <Skeleton className="h-56 w-full rounded-lg" />
+        <Skeleton className="h-56 w-full rounded-lg" />
+        <Skeleton className="h-56 w-full rounded-lg" />
       </section>
     </div>
   );
