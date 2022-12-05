@@ -13,6 +13,7 @@ export default async function Page() {
   const { data: tournaments, error: errorTournaments } = await supabase
     .from("tournaments")
     .select();
+
   if (errorTournaments) {
     console.error(errorTournaments);
     return null;

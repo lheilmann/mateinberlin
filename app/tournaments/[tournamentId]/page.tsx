@@ -8,6 +8,7 @@ import {
 import supabase from "~supabase";
 import Badge from "~components/Badge";
 import AddGameForm from "./AddGameForm";
+import GamesCard from "./GamesCard";
 
 export const revalidate = 0;
 
@@ -40,8 +41,6 @@ export default async function Page(props: Props) {
   const time = format(setHours(new Date(tournament.date), hours), "HH:mm", {
     locale: de,
   });
-
-  console.log(games);
 
   return (
     <div className="flex w-full flex-col items-center gap-6">
@@ -83,32 +82,40 @@ export default async function Page(props: Props) {
             })}
           </div>
         </div>
-        <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4 sm:col-span-3">
-          <h2 className="flex uppercase tracking-wider text-primary-400">
-            Paarungen
-          </h2>
-          <div className="flex flex-col">
-            <AddGameForm
-              tournamentId={tournament.id}
-              participants={participants}
-              games={games}
-            />
-          </div>
-          {games.map((game) => {
-            return (
-              <div
-                key={game.id}
-                className="grid grid-cols-12 gap-x-2 text-primary-200"
-              >
-                <div className="col-span-2">{game.round}. Runde</div>
-                <div className="col-span-3">{game.player_white.username}</div>
-                <div className="col-span-3">{game.player_black.username}</div>
-                <div className="col-span-3">{game.result}</div>
-                <div className="col-span-1">{/*  placeholder  */}</div>
-              </div>
-            );
-          })}
+        <div className="col-span-3">
+          <GamesCard
+            games={games}
+            participants={participants}
+            tournament={tournament}
+          />
         </div>
+
+        {/*<div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4 sm:col-span-3">*/}
+        {/*  <h2 className="flex uppercase tracking-wider text-primary-400">*/}
+        {/*    Paarungen*/}
+        {/*  </h2>*/}
+        {/*  <div className="flex flex-col">*/}
+        {/*    <AddGameForm*/}
+        {/*      tournamentId={tournament.id}*/}
+        {/*      participants={participants}*/}
+        {/*      games={games}*/}
+        {/*    />*/}
+        {/*  </div>*/}
+        {/*  {games.map((game) => {*/}
+        {/*    return (*/}
+        {/*      <div*/}
+        {/*        key={game.id}*/}
+        {/*        className="grid grid-cols-12 gap-x-2 text-primary-200"*/}
+        {/*      >*/}
+        {/*        <div className="col-span-2">{game.round}. Runde</div>*/}
+        {/*        <div className="col-span-3">{game.player_white.username}</div>*/}
+        {/*        <div className="col-span-3">{game.player_black.username}</div>*/}
+        {/*        <div className="col-span-3">{game.result}</div>*/}
+        {/*        <div className="col-span-1">/!*  placeholder  *!/</div>*/}
+        {/*      </div>*/}
+        {/*    );*/}
+        {/*  })}*/}
+        {/*</div>*/}
       </section>
     </div>
   );

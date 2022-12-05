@@ -220,7 +220,6 @@ function SignUpForm() {
           body: JSON.stringify({ name: "Functions" }),
         }
       );
-      console.log(response);
     }
     if (process.env.NODE_ENV === "development") {
       // fetchData();

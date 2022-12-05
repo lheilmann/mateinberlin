@@ -2,11 +2,11 @@ import Skeleton from "~components/Skeleton";
 
 export default function Loading() {
   return (
-    <div className="flex flex-col w-full gap-4">
-      <Skeleton className="rounded-lg w-full h-20"></Skeleton>
-      <Skeleton className="rounded-lg w-full h-20"></Skeleton>
-      <Skeleton className="rounded-lg w-full h-20"></Skeleton>
-      <Skeleton className="rounded-lg w-full h-20"></Skeleton>
+    <div className="flex w-full flex-col gap-4">
+      <Skeleton className="h-20 w-full rounded-lg"></Skeleton>
+      <Skeleton className="h-20 w-full rounded-lg"></Skeleton>
+      <Skeleton className="h-20 w-full rounded-lg"></Skeleton>
+      <Skeleton className="h-20 w-full rounded-lg"></Skeleton>
     </div>
   );
 }

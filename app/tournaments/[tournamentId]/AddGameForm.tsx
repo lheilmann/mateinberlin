@@ -16,7 +16,6 @@ export default function AddGameForm(props: Props) {
   const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values, { resetForm }) => {
-    console.log(values);
     await supabaseClient.from("games").insert({
       tournament_id: props.tournamentId,
       round: values.round,
