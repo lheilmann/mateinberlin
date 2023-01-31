@@ -11,8 +11,8 @@ type Game = {
   tournament_id: string;
   player_white_id: string;
   player_black_id: string;
-  result: Result | null;
   round: number;
+  result?: Result;
 };
 
 type Props = {
