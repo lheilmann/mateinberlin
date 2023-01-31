@@ -51,7 +51,7 @@ export default function GamesCard(props: Props) {
       games.push(game);
     }
     await supabaseClient.from("games").insert(games);
-    await router.refresh();
+    router.refresh();
     setIsStartingTournament(false);
   };
 

@@ -33,6 +33,7 @@ export default async function Page(props: Props) {
       "*, player_white:player_white_id(username), player_black:player_black_id(username)"
     )
     .eq("tournament_id", props.params.tournamentId);
+  console.log(games);
 
   const [hours] = tournament.time.split(":");
   const date = format(new Date(tournament.date), "PPP", {
