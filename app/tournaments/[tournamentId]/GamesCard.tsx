@@ -28,13 +28,20 @@ export default function GamesCard(props: Props) {
 
   const startTournament = async () => {
     setIsStartingTournament(true);
-    if (props.participants.length % 2 !== 0) {
-      throw Error("Unsupported");
-    }
     const participants = _.shuffle(props.participants);
-    const numberOfGames = participants.length / 2;
     let games = [];
-    for (let i = 0; i < numberOfGames; i++) {
+    if (participants.length & 1) {
+      const luckyParticipant = participants.shift();
+      const game: Game = {
+        tournament_id: props.tournament.id,
+        round: nextRound,
+        player_white_id: luckyParticipant.profile_id,
+        player_black_id: luckyParticipant.profile_id,
+        result: "WHITE_WINS",
+      };
+      games.push(game);
+    }
+    for (let i = 0; i < participants.length / 2; i++) {
       const game: Game = {
         tournament_id: props.tournament.id,
         round: 1,
@@ -102,17 +109,17 @@ export default function GamesCard(props: Props) {
 
     // Create games
     let games = [];
-    // if (props.participants.length & 1) {
-    //   const luckyParticipant = orderedParticipants.shift();
-    //   const game: Game = {
-    //     tournament_id: props.tournament.id,
-    //     round: 1, // TODO
-    //     player_white_id: luckyParticipant.profile_id,
-    //     player_black_id: luckyParticipant.profile_id,
-    //     result: "WHITE_WINS",
-    //   };
-    //   games.push(game);
-    // }
+    if (props.participants.length & 1) {
+      const luckyParticipant = orderedParticipants.shift();
+      const game: Game = {
+        tournament_id: props.tournament.id,
+        round: nextRound,
+        player_white_id: luckyParticipant.profile_id,
+        player_black_id: luckyParticipant.profile_id,
+        result: "WHITE_WINS",
+      };
+      games.push(game);
+    }
     for (let i = 0; i < orderedParticipants.length / 2; i++) {
       const game: Game = {
         tournament_id: props.tournament.id,
