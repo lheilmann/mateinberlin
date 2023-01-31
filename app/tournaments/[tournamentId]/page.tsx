@@ -7,9 +7,8 @@ import {
 } from "@heroicons/react/24/outline";
 import supabase from "~supabase";
 import Badge from "~components/Badge";
-import AddGameForm from "./AddGameForm";
 import GamesCard from "./GamesCard";
-import ScoresCard from "./ScoresCard.tsx";
+import ScoresCard from "./ScoresCard";
 
 export const revalidate = 0;
 
