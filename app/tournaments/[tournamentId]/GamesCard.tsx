@@ -4,7 +4,7 @@ import _ from "lodash";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import LoadingIcon from "~components/LoadingIcon.tsx";
+import LoadingIcon from "~components/LoadingIcon";
 
 type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
 type Game = {
