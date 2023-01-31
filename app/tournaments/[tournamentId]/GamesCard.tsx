@@ -34,7 +34,7 @@ export default function GamesCard(props: Props) {
       const luckyParticipant = participants.shift();
       const game: Game = {
         tournament_id: props.tournament.id,
-        round: nextRound,
+        round: 1,
         player_white_id: luckyParticipant.profile_id,
         player_black_id: luckyParticipant.profile_id,
         result: "WHITE_WINS",
