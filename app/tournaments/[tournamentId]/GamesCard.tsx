@@ -51,7 +51,7 @@ export default function GamesCard(props: Props) {
       games.push(game);
     }
     await supabaseClient.from("games").insert(games);
-    router.refresh();
+    router.push(`/tournaments/${props.tournament.id}`);
     setIsStartingTournament(false);
   };
 
@@ -130,7 +130,7 @@ export default function GamesCard(props: Props) {
       games.push(game);
     }
     await supabaseClient.from("games").insert(games);
-    await router.refresh();
+    router.push(`/tournaments/${props.tournament.id}`);
     setIsGeneratingNextRound(false);
   };
 
