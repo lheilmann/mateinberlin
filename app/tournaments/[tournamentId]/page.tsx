@@ -65,7 +65,7 @@ export default async function Page(props: Props) {
           <h2 className="flex uppercase tracking-wider text-primary-400">
             Teilnehmer*innen ({participants.length})
           </h2>
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-1">
             {participants.map((participant, index) => {
               return (
                 <div

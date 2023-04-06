@@ -5,6 +5,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
+import clsx from "clsx";
 
 type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
 type Game = {
@@ -24,7 +25,10 @@ export default function GamesCard(props: Props) {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
   const [isStartingTournament, setIsStartingTournament] = useState(false);
+  const [isUpdatingGame, setIsUpdatingGame] = useState(false);
   const [isGeneratingNextRound, setIsGeneratingNextRound] = useState(false);
+
+  const currentRound = _.max(props.games.map((game) => game.round));
 
   const startTournament = async () => {
     setIsStartingTournament(true);
@@ -56,8 +60,10 @@ export default function GamesCard(props: Props) {
   };
 
   const updateResult = async (gameId: string, result: Result) => {
+    setIsUpdatingGame(true);
     await supabaseClient.from("games").update({ result }).eq("id", gameId);
     router.refresh();
+    setIsUpdatingGame(false);
   };
 
   const canGenerateNextRound = () => {
@@ -137,7 +143,7 @@ export default function GamesCard(props: Props) {
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
       <h3 className="uppercase tracking-wider text-primary-400">Spiele</h3>
-      {props.games.length === 0 ? (
+      {props.games.length === 0 && (
         <div className="flex flex-row justify-start">
           <button
             className="flex items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 p-3 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
@@ -147,68 +153,72 @@ export default function GamesCard(props: Props) {
             <span>Turnier starten</span>
           </button>
         </div>
-      ) : (
-        <>
-          <div className="flex flex-col gap-2">
-            {_.orderBy(props.games, ["round", "id"]).map((game) => {
-              return (
-                <div
-                  key={game.id}
-                  className="grid grid-cols-12 text-primary-200"
-                >
-                  <div className="col-span-1 flex items-center">
-                    {game.round}
-                  </div>
-                  <div className="col-span-3 flex items-center">
-                    {game.player_white.username}
-                  </div>
-                  <div className="col-span-3 flex items-center">
-                    {game.player_black.username}
-                  </div>
-                  <div className="col-span-5 flex items-center">
-                    <select
-                      name="result"
-                      className="truncate rounded border border-primary-700 bg-primary-900 p-2 text-primary-100 hover:border-primary-600"
-                      onChange={(e) =>
-                        updateResult(game.id, e.target.value as Result)
-                      }
-                    >
-                      <option value="" disabled selected={game.result === null}>
-                        Ergebnis
-                      </option>
-                      <option
-                        value="WHITE_WINS"
-                        selected={game.result === "WHITE_WINS"}
-                      >
-                        Weiß gewinnt
-                      </option>
-                      <option
-                        value="BLACK_WINS"
-                        selected={game.result === "BLACK_WINS"}
-                      >
-                        Schwarz gewinnt
-                      </option>
-                      <option value="DRAW" selected={game.result === "DRAW"}>
-                        Unentschieden
-                      </option>
-                    </select>
-                  </div>
+      )}
+      {props.games.length > 0 && (
+        <div className="flex flex-col gap-2">
+          {_.orderBy(props.games, ["round", "id"]).map((game) => {
+            const isDisabled = game.round < currentRound;
+            return (
+              <div
+                key={game.id}
+                className={clsx(
+                  "grid grid-cols-12",
+                  isDisabled ? "text-primary-400" : "text-primary-100"
+                )}
+              >
+                <div className="col-span-1 flex items-center">{game.round}</div>
+                <div className="col-span-3 flex items-center">
+                  {game.player_white.username}
                 </div>
-              );
-            })}
-            {canGenerateNextRound() && (
-              <div>
-                <button
-                  className="mt-2 flex items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 p-3 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
-                  onClick={generateNextRound}
-                >
-                  {isGeneratingNextRound && <LoadingIcon className="h-5 w-5" />}
-                  <span>Nächste Runde generieren</span>
-                </button>
+                <div className="col-span-3 flex items-center">
+                  {game.player_black.username}
+                </div>
+                <div className="col-span-5 flex items-center">
+                  <select
+                    name="result"
+                    className={clsx(
+                      "truncate rounded border border-primary-700 p-2 opacity-100 enabled:bg-primary-900 enabled:text-primary-100 enabled:hover:border-primary-600 disabled:cursor-not-allowed disabled:bg-primary-800 disabled:text-primary-400"
+                    )}
+                    onChange={(e) =>
+                      updateResult(game.id, e.target.value as Result)
+                    }
+                    disabled={isDisabled}
+                  >
+                    <option value="" disabled selected={game.result === null}>
+                      Ergebnis
+                    </option>
+                    <option
+                      value="WHITE_WINS"
+                      selected={game.result === "WHITE_WINS"}
+                    >
+                      Weiß gewinnt
+                    </option>
+                    <option
+                      value="BLACK_WINS"
+                      selected={game.result === "BLACK_WINS"}
+                    >
+                      Schwarz gewinnt
+                    </option>
+                    <option value="DRAW" selected={game.result === "DRAW"}>
+                      Unentschieden
+                    </option>
+                  </select>
+                </div>
               </div>
-            )}
-          </div>
-        </>
+            );
+          })}
+          {canGenerateNextRound() && (
+            <div>
+              <button
+                className="mt-2 flex items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 p-3 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
+                onClick={generateNextRound}
+              >
+                {isGeneratingNextRound && <LoadingIcon className="h-5 w-5" />}
+                <span>Nächste Runde generieren</span>
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
