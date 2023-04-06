@@ -15,7 +15,7 @@ export default async function Page() {
 
   return (
     <div className="flex flex-col gap-4">
-      {_.orderBy(tournaments, "date").map((tournament) => (
+      {_.orderBy(tournaments, "date", "desc").map((tournament) => (
         <TournamentListItem key={tournament.id} tournament={tournament} />
       ))}
       <CreateTournamentDialog />

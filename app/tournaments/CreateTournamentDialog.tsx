@@ -13,7 +13,7 @@ export default function CreateTournamentDialog() {
   const supabaseClient = useSupabaseClient();
 
   const onSubmit = async (values, { resetForm }) => {
-    const res = await supabaseClient.from("tournaments").insert({
+    await supabaseClient.from("tournaments").insert({
       ...values,
     });
     router.refresh();
