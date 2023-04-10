@@ -23,7 +23,7 @@ export default function CommunityCard(props: Props) {
               <span className="text-6xl text-primary-100">
                 {props.numberOfProfiles}
               </span>
-              <span className="text-lg text-primary-300">Spieler*innen</span>
+              <span className="text-lg text-primary-300">Spieler:innen</span>
             </div>
           </div>
         </div>
