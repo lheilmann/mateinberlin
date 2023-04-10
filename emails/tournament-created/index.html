@@ -1,0 +1,82 @@
+<html lang="de">
+<head>
+  <title>Mate In Berlin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400&display=swap');
+
+    @layer base {
+      :root {
+        --color-ocean-100: hsl(223deg 84% 96%);
+        --color-ocean-200: hsl(223deg 84% 84%);
+        --color-ocean-300: hsl(223deg 84% 72%);
+        --color-ocean-400: hsl(223deg 84% 60%);
+        --color-ocean-500: hsl(223deg 84% 45%);
+        --color-ocean-600: hsl(223deg 84% 32%);
+        --color-ocean-700: hsl(223deg 84% 20%);
+        --color-ocean-800: hsl(223deg 84% 12%);
+        --color-ocean-900: hsl(223deg 84% 6%);
+      }
+    }
+
+    body {
+      font-family: "Space Grotesk", serif;
+      background-color: var(--color-ocean-900);
+      color: var(--color-ocean-100);
+      font-size: 18px;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .hero {
+      box-shadow: inset 0 0 180px 125px var(--color-ocean-900);
+      display: flex;
+      min-height: 340px;
+      align-items: center;
+      justify-content: center;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath fill-rule='evenodd' d='M0 0H40V40H0V0ZM40 40H80V80H40V40Z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .headline {
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--color-ocean-300);
+      font-weight: 100;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      text-align: center;
+      -webkit-background-clip: text;
+    }
+
+    p {
+      width: 400px;
+      margin: 0;
+    }
+
+    a {
+      color: var(--color-ocean-400);
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1 class="headline">
+      Mate in Berlin
+    </h1>
+  </div>
+  <main>
+    <p>Hallo liebe:r Schachfreund:in,</p>
+    <p>am 12. April 2023 um 19 Uhr findet der nächste Schachabend in der Kneipe Jonas statt.</p>
+    <p>Du kannst Dich ab jetzt auf der Website anmelden: <a href="https://www.mateinberlin.de/">mateinberlin.de</a></p>
+    <p>Ich freue mich auf Dich!</p>
+    <p>Bis dahin,</p>
+    <p>MateInBerlin-Team</p>
+  </main>
+</body>
+</html>
