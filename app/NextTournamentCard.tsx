@@ -36,7 +36,7 @@ function NextTournament(props: Props) {
   const { profile } = useProfile();
 
   const [hours] = props.nextTournament.time.split(":");
-  const date = format(new Date(props.nextTournament.date), "PPP", {
+  const date = format(new Date(props.nextTournament.date), "EEE, PPP", {
     locale: de,
   });
   const time = format(
@@ -137,7 +137,7 @@ function ManageParticipation(props: ManageParticipationProps) {
           trigger={
             <button className="group mt-2 flex h-16 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200">
               <span>Ich bin dabei</span>
-              <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+              <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
             </button>
           }
         />
@@ -153,7 +153,6 @@ function ManageParticipation(props: ManageParticipationProps) {
     );
   }
 
-  // Can participate
   if (participates) {
     return (
       <div className="flex flex-col gap-2">
@@ -184,7 +183,7 @@ function ManageParticipation(props: ManageParticipationProps) {
         trigger={
           <button className="group mt-2 flex h-16 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200">
             <span>Ich bin doch dabei</span>
-            <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            <RocketLaunchIcon className="h-6 w-6 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
           </button>
         }
       />
@@ -216,8 +215,8 @@ function ParticipateDialog(props: ParticipateDialogProps) {
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>{props.trigger}</Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-primary-900/95 data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out" />
-        <Dialog.Content className="fixed top-2/4 left-2/4 flex min-w-[360px] -translate-x-2/4 -translate-y-2/4 flex-col gap-4 rounded-lg bg-primary-800 p-4 shadow-2xl data-[state=open]:animate-fade-in data-[state=closed]:animate-fade-out md:min-w-[400px]">
+        <Dialog.Overlay className="fixed inset-0 bg-primary-900/95 data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in" />
+        <Dialog.Content className="fixed left-2/4 top-2/4 flex min-w-[360px] -translate-x-2/4 -translate-y-2/4 flex-col gap-4 rounded-lg bg-primary-800 p-4 shadow-2xl data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in md:min-w-[400px]">
           <Dialog.Title className="text-lg font-medium text-primary-100 md:text-xl">
             Bringst du ein Schachbrett mit?
           </Dialog.Title>
@@ -237,7 +236,7 @@ function ParticipateDialog(props: ParticipateDialogProps) {
           </div>
           <Dialog.Close asChild>
             <button
-              className="hover:primray-200 absolute top-2.5 right-2.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-700 text-primary-100 hover:bg-primary-600"
+              className="hover:primray-200 absolute right-2.5 top-2.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary-700 text-primary-100 hover:bg-primary-600"
               aria-label="Close"
             >
               <XMarkIcon className="h-4 w-4" />
