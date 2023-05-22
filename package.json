@@ -7,12 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "supabase": "supabase"
+    "supabase": "supabase",
+    "test": "jest --watch"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.4",
     "@heroicons/react": "^2.0.13",
-    "@next/font": "^13.0.0",
     "@radix-ui/react-dialog": "^1.0.2",
     "@radix-ui/react-dropdown-menu": "^2.0.1",
     "@radix-ui/react-tabs": "^1.0.1",
@@ -23,8 +23,9 @@
     "encoding": "^0.1.13",
     "eslint-plugin-tailwindcss": "^3.7.0",
     "formik": "^2.2.9",
+    "jest": "^29.5.0",
     "lodash": "^4.17.21",
-    "next": "13.0.0",
+    "next": "^13.4.3",
     "npm": "^8.19.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",

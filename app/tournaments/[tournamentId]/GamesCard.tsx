@@ -6,9 +6,10 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
 import clsx from "clsx";
+import { buildGamesForRound } from "./utils.ts";
 
-type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
-type Game = {
+export type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
+export type Game = {
   tournament_id: string;
   player_white_id: string;
   player_black_id: string;
@@ -32,28 +33,12 @@ export default function GamesCard(props: Props) {
 
   const startTournament = async () => {
     setIsStartingTournament(true);
-    const participants = _.shuffle(props.participants);
-    let games = [];
-    if (participants.length & 1) {
-      const luckyParticipant = participants.shift();
-      const game: Game = {
-        tournament_id: props.tournament.id,
-        round: 1,
-        player_white_id: luckyParticipant.profile_id,
-        player_black_id: luckyParticipant.profile_id,
-        result: "WHITE_WINS",
-      };
-      games.push(game);
-    }
-    for (let i = 0; i < participants.length / 2; i++) {
-      const game: Game = {
-        tournament_id: props.tournament.id,
-        round: 1,
-        player_white_id: participants[2 * i].profile_id,
-        player_black_id: participants[2 * i + 1].profile_id,
-      };
-      games.push(game);
-    }
+    const games = buildGamesForRound(
+      props.participants,
+      props.games,
+      props.tournament.id,
+      1
+    );
     await supabaseClient.from("games").insert(games);
     router.refresh();
     setIsStartingTournament(false);
@@ -75,66 +60,13 @@ export default function GamesCard(props: Props) {
 
   const generateNextRound = async () => {
     setIsGeneratingNextRound(true);
-    const nextRound = _.max(props.games.map((game) => game.round)) + 1;
-
-    // Order participants by wins, losses, draws
-    const orderedParticipants = _.orderBy(
-      props.participants.map((participant) => {
-        const games = props.games.filter(
-          (game) =>
-            game.player_white_id === participant.profile_id ||
-            game.player_black_id === participant.profile_id
-        );
-        let wins = 0;
-        let losses = 0;
-        let draws = 0;
-        games.forEach((game) => {
-          if (game.player_white_id === participant.profile_id) {
-            if (game.result === "WHITE_WINS") {
-              wins++;
-            } else if (game.result === "BLACK_WINS") {
-              losses++;
-            } else if (game.result === "DRAW") {
-              draws++;
-            }
-          }
-          if (game.player_black_id === participant.profile_id) {
-            if (game.result === "BLACK_WINS") {
-              wins++;
-            } else if (game.result === "WHITE_WINS") {
-              losses++;
-            } else if (game.result === "DRAW") {
-              draws++;
-            }
-          }
-        });
-        return { id: participant.profile_id, points: wins + draws * 0.5 };
-      }),
-      "points"
+    const round = _.max(props.games.map((game) => game.round)) + 1;
+    const games = buildGamesForRound(
+      props.participants,
+      props.games,
+      props.tournament.id,
+      round
     );
-
-    // Create games
-    let games = [];
-    if (props.participants.length & 1) {
-      const luckyParticipant = orderedParticipants.shift();
-      const game: Game = {
-        tournament_id: props.tournament.id,
-        round: nextRound,
-        player_white_id: luckyParticipant.profile_id,
-        player_black_id: luckyParticipant.profile_id,
-        result: "WHITE_WINS",
-      };
-      games.push(game);
-    }
-    for (let i = 0; i < orderedParticipants.length / 2; i++) {
-      const game: Game = {
-        tournament_id: props.tournament.id,
-        round: nextRound,
-        player_white_id: orderedParticipants[2 * i].id,
-        player_black_id: orderedParticipants[2 * i + 1].id,
-      };
-      games.push(game);
-    }
     await supabaseClient.from("games").insert(games);
     await router.refresh();
     setIsGeneratingNextRound(false);

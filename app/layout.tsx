@@ -1,7 +1,7 @@
 import "./global.css";
 import React from "react";
 
-import { Space_Grotesk } from "@next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import clsx from "clsx";
 import Provider from "./Provider";
 import Header from "./Header";
