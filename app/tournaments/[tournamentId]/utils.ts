@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { Game } from "./GamesCard.tsx";
+import { Game } from "./GamesCard";
 
 export const rankParticipantsByPoints = (
   participants: any[],
