@@ -241,10 +241,10 @@ export const buildGamesForRound = (
     const currentParticipantId = _.last(rank).id;
     let opponentParticipantId;
 
-    let candidateIds = Array.from(rank);
-    candidateIds.reverse();
-    candidateIds.shift();
-    candidateIds = candidateIds.map((participant) => participant.id);
+    let rankCopy = Array.from(rank);
+    rankCopy.reverse();
+    rankCopy.shift();
+    const candidateIds = rankCopy.map((participant) => participant.id);
     let currentCandidateIndex = 0;
 
     while (currentCandidateIndex < candidateIds.length) {
