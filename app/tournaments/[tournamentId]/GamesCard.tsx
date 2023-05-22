@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
 import clsx from "clsx";
-import { buildGamesForRound } from "./utils.ts";
+import { buildGamesForRound } from "./utils";
 
 export type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
 export type Game = {
