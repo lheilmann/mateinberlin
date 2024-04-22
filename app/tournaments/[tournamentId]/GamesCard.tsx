@@ -154,13 +154,13 @@ const Game = ({
       )}
     >
       <div className="col-span-1 flex items-center">{game.round}</div>
-      <div className="col-span-3 flex items-center">
+      <div className="col-span-4 flex items-center">
         {game.player_white.username}
       </div>
-      <div className="col-span-3 flex items-center">
+      <div className="col-span-4 flex items-center">
         {game.player_black.username}
       </div>
-      <div className="col-span-5 flex items-center">
+      <div className="col-span-3 flex items-center">
         <select
           name="result"
           className={clsx(
@@ -173,13 +173,13 @@ const Game = ({
             Ergebnis
           </option>
           <option value="WHITE_WINS" selected={game.result === "WHITE_WINS"}>
-            Weiß gewinnt
+            Weiß
           </option>
           <option value="BLACK_WINS" selected={game.result === "BLACK_WINS"}>
-            Schwarz gewinnt
+            Schwarz
           </option>
           <option value="DRAW" selected={game.result === "DRAW"}>
-            Unentschieden
+            Remis
           </option>
         </select>
       </div>
