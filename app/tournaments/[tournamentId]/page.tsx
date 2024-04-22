@@ -33,7 +33,6 @@ export default async function Page(props: Props) {
       "*, player_white:player_white_id(username), player_black:player_black_id(username)"
     )
     .eq("tournament_id", props.params.tournamentId);
-  console.log(games);
 
   const [hours] = tournament.time.split(":");
   const date = format(new Date(tournament.date), "PPP", {
@@ -60,9 +59,9 @@ export default async function Page(props: Props) {
         </h2>
       </section>
       <hr className="w-full border-primary-800" />
-      <section className="grid w-full max-w-7xl grid-cols-1 gap-4 sm:grid-cols-4 sm:gap-6">
-        <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
-          <h2 className="flex uppercase tracking-wider text-primary-400">
+      <section className="grid w-full max-w-7xl grid-cols-1 gap-4 overflow-hidden sm:grid-cols-4 sm:gap-6">
+        <div className="flex flex-col gap-2 overflow-scroll rounded-lg border border-primary-700 bg-primary-800 p-4">
+          <h2 className="flex whitespace-nowrap uppercase tracking-wider text-primary-400">
             Teilnehmer:innen ({participants.length})
           </h2>
           <div className="flex flex-col gap-1">

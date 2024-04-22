@@ -7,6 +7,8 @@ import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
 import clsx from "clsx";
 import { buildGamesForRound } from "./utils";
+import useProfile from "~hooks/useProfile.tsx";
+import { isAdmin } from "~supabase/utils.ts";
 
 export type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
 export type Game = {
@@ -25,8 +27,8 @@ type Props = {
 export default function GamesCard(props: Props) {
   const supabaseClient = useSupabaseClient();
   const router = useRouter();
+  const { profile, user } = useProfile();
   const [isStartingTournament, setIsStartingTournament] = useState(false);
-  const [isUpdatingGame, setIsUpdatingGame] = useState(false);
   const [isGeneratingNextRound, setIsGeneratingNextRound] = useState(false);
 
   const currentRound = _.max(props.games.map((game) => game.round));
@@ -42,13 +44,6 @@ export default function GamesCard(props: Props) {
     await supabaseClient.from("games").insert(games);
     router.refresh();
     setIsStartingTournament(false);
-  };
-
-  const updateResult = async (gameId: string, result: Result) => {
-    setIsUpdatingGame(true);
-    await supabaseClient.from("games").update({ result }).eq("id", gameId);
-    router.refresh();
-    setIsUpdatingGame(false);
   };
 
   const canGenerateNextRound = () => {
@@ -72,6 +67,8 @@ export default function GamesCard(props: Props) {
     setIsGeneratingNextRound(false);
   };
 
+  const isAdminUser = user && isAdmin(user);
+
   return (
     <div className="flex flex-col gap-2 rounded-lg border border-primary-700 bg-primary-800 p-4">
       <h3 className="uppercase tracking-wider text-primary-400">Spiele</h3>
@@ -80,8 +77,9 @@ export default function GamesCard(props: Props) {
           <button
             className="flex items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 p-3 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
             onClick={startTournament}
+            disabled={!isAdminUser || isStartingTournament}
           >
-            {isStartingTournament && <LoadingIcon className="h-5 w-5" />}
+            {isStartingTournament && <LoadingIcon className="size-5" />}
             <span>Turnier starten</span>
           </button>
         </div>
@@ -89,54 +87,18 @@ export default function GamesCard(props: Props) {
       {props.games.length > 0 && (
         <div className="flex flex-col gap-2">
           {_.orderBy(props.games, ["round", "id"]).map((game) => {
-            const isDisabled = game.round < currentRound;
             return (
-              <div
+              <Game
                 key={game.id}
-                className={clsx(
-                  "grid grid-cols-12",
-                  isDisabled ? "text-primary-400" : "text-primary-100"
-                )}
-              >
-                <div className="col-span-1 flex items-center">{game.round}</div>
-                <div className="col-span-3 flex items-center">
-                  {game.player_white.username}
-                </div>
-                <div className="col-span-3 flex items-center">
-                  {game.player_black.username}
-                </div>
-                <div className="col-span-5 flex items-center">
-                  <select
-                    name="result"
-                    className={clsx(
-                      "truncate rounded border border-primary-700 p-2 opacity-100 enabled:bg-primary-900 enabled:text-primary-100 enabled:hover:border-primary-600 disabled:cursor-not-allowed disabled:bg-primary-800 disabled:text-primary-400"
-                    )}
-                    onChange={(e) =>
-                      updateResult(game.id, e.target.value as Result)
-                    }
-                    disabled={isDisabled}
-                  >
-                    <option value="" disabled selected={game.result === null}>
-                      Ergebnis
-                    </option>
-                    <option
-                      value="WHITE_WINS"
-                      selected={game.result === "WHITE_WINS"}
-                    >
-                      Weiß gewinnt
-                    </option>
-                    <option
-                      value="BLACK_WINS"
-                      selected={game.result === "BLACK_WINS"}
-                    >
-                      Schwarz gewinnt
-                    </option>
-                    <option value="DRAW" selected={game.result === "DRAW"}>
-                      Unentschieden
-                    </option>
-                  </select>
-                </div>
-              </div>
+                game={game}
+                currentRound={currentRound}
+                isAdmin={isAdminUser}
+                isPlayer={
+                  profile &&
+                  (game.player_white_id === profile.id ||
+                    game.player_black_id === profile.id)
+                }
+              />
             );
           })}
           {canGenerateNextRound() && (
@@ -144,8 +106,9 @@ export default function GamesCard(props: Props) {
               <button
                 className="mt-2 flex items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 p-3 text-lg font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
                 onClick={generateNextRound}
+                disabled={!isAdminUser || isGeneratingNextRound}
               >
-                {isGeneratingNextRound && <LoadingIcon className="h-5 w-5" />}
+                {isGeneratingNextRound && <LoadingIcon className="size-5" />}
                 <span>Nächste Runde generieren</span>
               </button>
             </div>
@@ -155,3 +118,71 @@ export default function GamesCard(props: Props) {
     </div>
   );
 }
+
+const Game = ({
+  game,
+  currentRound,
+  isAdmin,
+  isPlayer,
+}: {
+  game: Game;
+  currentRound: number;
+  isAdmin: boolean;
+  isPlayer: boolean;
+}) => {
+  const supabaseClient = useSupabaseClient();
+  const router = useRouter();
+  const [isUpdatingGame, setIsUpdatingGame] = useState(false);
+
+  const updateResult = async (gameId: string, result: Result) => {
+    setIsUpdatingGame(true);
+    await supabaseClient.from("games").update({ result }).eq("id", gameId);
+    router.refresh();
+    setIsUpdatingGame(false);
+  };
+
+  const canUpdateGame = isAdmin || isPlayer;
+  const isRoundPlayed = game.round < currentRound;
+  const isDisabled = isRoundPlayed || isUpdatingGame || !canUpdateGame;
+
+  return (
+    <div
+      key={game.id}
+      className={clsx(
+        "grid grid-cols-12",
+        isDisabled ? "text-primary-400" : "text-primary-100"
+      )}
+    >
+      <div className="col-span-1 flex items-center">{game.round}</div>
+      <div className="col-span-3 flex items-center">
+        {game.player_white.username}
+      </div>
+      <div className="col-span-3 flex items-center">
+        {game.player_black.username}
+      </div>
+      <div className="col-span-5 flex items-center">
+        <select
+          name="result"
+          className={clsx(
+            "truncate rounded border border-primary-700 p-2 opacity-100 enabled:bg-primary-900 enabled:text-primary-100 enabled:hover:border-primary-600 disabled:cursor-not-allowed disabled:bg-primary-800 disabled:text-primary-400"
+          )}
+          onChange={(e) => updateResult(game.id, e.target.value as Result)}
+          disabled={isDisabled}
+        >
+          <option value="" disabled selected={game.result === null}>
+            Ergebnis
+          </option>
+          <option value="WHITE_WINS" selected={game.result === "WHITE_WINS"}>
+            Weiß gewinnt
+          </option>
+          <option value="BLACK_WINS" selected={game.result === "BLACK_WINS"}>
+            Schwarz gewinnt
+          </option>
+          <option value="DRAW" selected={game.result === "DRAW"}>
+            Unentschieden
+          </option>
+        </select>
+      </div>
+    </div>
+  );
+};

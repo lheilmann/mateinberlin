@@ -36,7 +36,7 @@ export default function TournamentListItem(props: Props) {
         </p>
       </div>
       <div className="flex items-center">
-        <ArrowSmallRightIcon className="h-6 w-6 text-primary-100 transition group-hover:translate-x-2" />
+        <ArrowSmallRightIcon className="size-6 text-primary-100 transition group-hover:translate-x-2" />
       </div>
     </div>
   );
