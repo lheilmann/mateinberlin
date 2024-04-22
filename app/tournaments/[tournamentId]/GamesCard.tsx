@@ -11,9 +11,11 @@ import useProfile from "~hooks/useProfile";
 import { isAdmin } from "~supabase/utils";
 
 export type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
-export type Game = {
+type Game = {
   id: string;
   tournament_id: string;
+  player_white: any;
+  player_black: any;
   player_white_id: string;
   player_black_id: string;
   round: number;

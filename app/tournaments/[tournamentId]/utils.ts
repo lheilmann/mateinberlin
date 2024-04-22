@@ -1,5 +1,13 @@
 import _ from "lodash";
-import { Game } from "./GamesCard";
+import { Result } from "./GamesCard";
+
+type Game = {
+  tournament_id: string;
+  player_white_id: string;
+  player_black_id: string;
+  round: number;
+  result?: Result;
+};
 
 export const rankParticipantsByPoints = (
   participants: any[],
