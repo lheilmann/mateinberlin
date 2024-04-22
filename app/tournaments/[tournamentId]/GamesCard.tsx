@@ -7,8 +7,8 @@ import { useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
 import clsx from "clsx";
 import { buildGamesForRound } from "./utils";
-import useProfile from "~hooks/useProfile.tsx";
-import { isAdmin } from "~supabase/utils.ts";
+import useProfile from "~hooks/useProfile";
+import { isAdmin } from "~supabase/utils";
 
 export type Result = "WHITE_WINS" | "BLACK_WINS" | "DRAW";
 export type Game = {
