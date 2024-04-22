@@ -2,8 +2,8 @@
 
 import { Field, Form, Formik } from "formik";
 import {
-  useSupabaseClient,
   useSessionContext,
+  useSupabaseClient,
 } from "@supabase/auth-helpers-react";
 import * as Tabs from "@radix-ui/react-tabs";
 import {
@@ -18,7 +18,7 @@ import {
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import LoadingIcon from "~components/LoadingIcon";
-import { AuthError } from "@supabase/gotrue-js";
+import { AuthError } from "@supabase/auth-js";
 
 export default function AuthCard() {
   const sessionContext = useSessionContext();
@@ -36,14 +36,14 @@ export default function AuthCard() {
           className="flex flex-1 items-center justify-center gap-2 border-b border-primary-700 py-3 text-primary-400 transition hover:text-primary-300 data-[state=active]:border-primary-100 data-[state=active]:text-primary-100"
           value="sign-in"
         >
-          <ArrowLeftOnRectangleIcon className="h-5 w-5" />
+          <ArrowLeftOnRectangleIcon className="size-5" />
           <span>Anmelden</span>
         </Tabs.Trigger>
         <Tabs.Trigger
           className="flex flex-1 items-center justify-center gap-2 border-b border-primary-700 py-3 text-primary-400 transition hover:text-primary-300 data-[state=active]:border-primary-100 data-[state=active]:text-primary-100"
           value="register"
         >
-          <UserPlusIcon className="h-5 w-5" />
+          <UserPlusIcon className="size-5" />
           <span>Registrieren</span>
         </Tabs.Trigger>
       </Tabs.List>
@@ -137,7 +137,7 @@ function SignInForm() {
             {form.touched.email && form.errors.email && (
               <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
-                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                  <ExclamationTriangleIcon className="mt-0.5 size-4" />
                 </span>
                 <span>{form.errors.email}</span>
               </div>
@@ -158,7 +158,7 @@ function SignInForm() {
             {form.touched.password && form.errors.password && (
               <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
-                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                  <ExclamationTriangleIcon className="mt-0.5 size-4" />
                 </span>
                 <span>{form.errors.password}</span>
               </div>
@@ -167,7 +167,7 @@ function SignInForm() {
           {error && (
             <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
               <span>
-                <ExclamationTriangleIcon className="mt-0.5 h-5 w-5" />
+                <ExclamationTriangleIcon className="mt-0.5 size-5" />
               </span>
               <div className="flex flex-col gap-1 text-sm">
                 <span>Hoppla! Da ist etwas schief gelaufen.</span>
@@ -185,7 +185,7 @@ function SignInForm() {
             disabled={form.isSubmitting}
             className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition hover:bg-primary-800 hover:text-primary-200"
           >
-            {isLoading && <LoadingIcon className="h-5 w-5" />}
+            {isLoading && <LoadingIcon className="size-5" />}
             <span>Anmelden</span>
           </button>
         </Form>
@@ -309,7 +309,7 @@ function SignUpForm() {
             {form.touched.username && form.errors.username && (
               <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
-                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                  <ExclamationTriangleIcon className="mt-0.5 size-4" />
                 </span>
                 <span>{form.errors.username}</span>
               </div>
@@ -318,11 +318,11 @@ function SignUpForm() {
               <div className="block text-sm text-primary-400">
                 <ul className="flex flex-col gap-1">
                   <li className="inline-flex items-start gap-1.5">
-                    <ScissorsIcon className="mt-0.5 h-4 w-4" />
+                    <ScissorsIcon className="mt-0.5 size-4" />
                     Zwischen 6 und 15 Zeichen
                   </li>
                   <li className="inline-flex items-start gap-1.5">
-                    <LanguageIcon className="mt-0.5 h-4 w-4" />
+                    <LanguageIcon className="mt-0.5 size-4" />
                     Nur Buchstaben, Ziffern und Unterstriche
                   </li>
                 </ul>
@@ -345,7 +345,7 @@ function SignUpForm() {
             {form.touched.email && form.errors.email && (
               <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
-                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                  <ExclamationTriangleIcon className="mt-0.5 size-4" />
                 </span>
                 <span>{form.errors.email}</span>
               </div>
@@ -367,7 +367,7 @@ function SignUpForm() {
             {form.touched.password && form.errors.password && (
               <div className="inline-flex items-start gap-1.5 text-sm text-primary-400">
                 <span>
-                  <ExclamationTriangleIcon className="mt-0.5 h-4 w-4" />
+                  <ExclamationTriangleIcon className="mt-0.5 size-4" />
                 </span>
                 <span>{form.errors.password}</span>
               </div>
@@ -376,7 +376,7 @@ function SignUpForm() {
           {error && (
             <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
               <span>
-                <ExclamationTriangleIcon className="mt-0.5 h-5 w-5" />
+                <ExclamationTriangleIcon className="mt-0.5 size-5" />
               </span>
               <div className="flex flex-col gap-1 text-sm">
                 <span>
@@ -397,11 +397,11 @@ function SignUpForm() {
             disabled={form.isSubmitting || isRegistered}
             className="group flex h-12 w-full items-center justify-center gap-3 rounded border border-primary-600 bg-primary-700 font-medium text-primary-100 transition enabled:hover:bg-primary-800 enabled:hover:text-primary-200 disabled:bg-primary-800 disabled:text-primary-200"
           >
-            {isLoading && <LoadingIcon className="h-5 w-5" />}
+            {isLoading && <LoadingIcon className="size-5" />}
             {isRegistered ? (
               <>
                 <span>
-                  <EnvelopeOpenIcon className="h-6 w-6" />
+                  <EnvelopeOpenIcon className="size-6" />
                 </span>
                 <span>Schau mal in dein Postfach</span>
               </>
@@ -412,7 +412,7 @@ function SignUpForm() {
           {isRegistered && (
             <div className="flex items-start gap-2.5 rounded-md border border-primary-500 bg-primary-600 px-3 py-2 text-primary-200">
               <span>
-                <PaperAirplaneIcon className="mt-0.5 h-5 w-5" />
+                <PaperAirplaneIcon className="mt-0.5 size-5" />
               </span>
               <span className="text-sm">
                 Wir haben dir einen Link per E-Mail geschickt, mit dem du deine
